@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>WhatsApp Order Generator</title>
+  <meta
+    name="description"
+    content="Generate structured WhatsApp order messages quickly."
+  >
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="app-header">
+    <h1>WhatsApp Order Generator</h1>
+    <p>Generate structured WhatsApp order messages.</p>
+  </header>
+
+  <main class="app-main">
+    <section class="order-form">
+      <h2>Order Form</h2>
+
+      <form id="orderForm" novalidate>
+        <div class="field-group">
+          <label for="customerName">Nama Pelanggan</label>
+          <input
+            type="text"
+            id="customerName"
+            name="customerName"
+            placeholder="Masukkan nama pelanggan"
+            required
+          >
+        </div>
+
+        <div class="field-group">
+          <label for="customerPhone">Nombor Telefon (optional)</label>
+          <input
+            type="text"
+            id="customerPhone"
+            name="customerPhone"
+            placeholder="contoh: +60123456789"
+            inputmode="tel"
+            autocomplete="tel"
+          >
+          <p class="field-hint">Format: +60123456789 atau 60123456789</p>
+        </div>
+
+        <div class="items-section">
+          <div class="section-subhead">
+            <h3>Item Pesanan</h3>
+          </div>
+
+          <div id="orderItemsContainer" class="order-items-container"></div>
+
+          <button type="button" id="addItemBtn" class="add-item-btn">
+            <span class="add-item-icon">＋</span>
+            <span>Tambah Item Lagi</span>
+          </button>
+        </div>
+
+        <button type="button" id="generateBtn">
+          Generate Order
+        </button>
+      </form>
+    </section>
+
+    <section class="message-preview">
+      <h2>Preview Mesej</h2>
+      <pre id="messageBox">Preview mesej akan muncul di sini apabila maklumat wajib diisi.</pre>
+    </section>
+
+    <section class="actions">
+      <button id="openWhatsAppBtn" type="button" disabled>
+        Buka WhatsApp
+      </button>
+
+      <button id="copyMessageBtn" type="button" disabled>
+        Salin Mesej
+      </button>
+
+      <button id="copyLinkBtn" type="button" disabled>
+        Salin Link
+      </button>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>WhatsApp Order Generator</p>
+  </footer>
+
+  <template id="orderItemTemplate">
+    <article class="order-item" data-item-index="">
+      <button
+        type="button"
+        class="order-item-toggle"
+        aria-expanded="true"
+      >
+        <span class="order-item-toggle-left">
+          <span class="order-item-chevron">⌄</span>
+          <span class="order-item-title">Item 1</span>
+          <span class="order-item-summary">Belum dipilih</span>
+        </span>
+
+        <span class="order-item-actions">
+          <span class="order-item-remove-text">Buang</span>
+        </span>
+      </button>
+
+      <div class="order-item-body">
+        <div class="field-group">
+          <label>Produk</label>
+          <select class="item-product" required>
+            <option value="">Pilih produk</option>
+          </select>
+        </div>
+
+        <div class="field-group field-qty">
+          <label>Kuantiti</label>
+          <input
+            type="number"
+            class="item-qty"
+            value="1"
+            min="1"
+            required
+          >
+        </div>
+
+        <div class="field-group">
+          <label>Catatan (optional)</label>
+          <textarea
+            class="item-note"
+            placeholder="Contoh: kurang pedas, nak gift wrap, dll"
+          ></textarea>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script src="js/config.js"></script>
+  <script src="js/form.js"></script>
+  <script src="js/input-validator.js"></script>
+  <script src="js/message-composer.js"></script>
+  <script src="js/message-formatter.js"></script>
+  <script src="js/whatsapp-url.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
