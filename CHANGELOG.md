@@ -18,86 +18,69 @@ Uses `0.x.x` until stable product baseline is reached.
 
 ## Added
 
-Application baseline reset:
+Application baseline established:
 
-- Defined as user-facing Application (not module/system)
-- Scope locked to order-intent generator
-- Architecture simplified:
-  - 1 Small module (Message Composer)
-  - Very Small tools only
-- Removed dependency on Medium systems
-
-Core functionality:
-
-- Order form (multi-item)
-- Input validation
-- Structured message generation
-- WhatsApp URL generation
+- Defined as user-facing Application
+- UI fully implemented (mobile-first)
+- Multi-item order form
+- Collapsible item sections
 - Live preview
-- Copy / Open WhatsApp actions
+- Copy message / link
+- WhatsApp integration
+- Local storage (customer data)
+
+Architecture:
+
+- Message Composer (Small)
+- Input Validator
+- Message Formatter
+- WhatsApp URL Encoder
 
 ## Changed
 
-- Repositioned from tool/module → product Application
-- Simplified architecture for fast delivery
-- Cleaned scope to avoid platform expansion
-- Updated README to reflect product identity
+- Reset from legacy structure → Application model
+- Simplified architecture (no Medium system)
+- Clean separation of logic:
+  - form
+  - validation
+  - composition
+  - formatting
+  - transport
 
 ## Notes
 
-- This version is the new baseline for development
-- Previous iterations are preserved under Legacy History
+- This is the first stable product baseline
+- Ready for deployment
 
 ---
 
-# Legacy History (Pre-Application Phase)
+# Legacy History
 
-These versions were developed before the system was clearly defined as an Application.
+(Pre-Application Phase)
 
 ---
 
 ## [0.2.0] - 2026-03-29
 
-### Added
-
-- Multi-item order support
-- Dynamic add/remove item flow
-- Collapsible order sections
-- Multi-item message builder
-- Live preview updates
-- Optional phone field
-
-### Changed
-
-- Mobile-first form improvements
-- UI clarity for repeated inputs
-- Merged CONOPS into README
-
----
+- Multi-item support
+- Collapsible items
+- UI improvements
 
 ## [0.1.0] - 2026-03-17
 
-### Added
-
-Initial prototype:
-
-- Order form
-- Basic validation
-- Message builder
-- WhatsApp URL generator
-- Live preview
-- Responsive UI
+- Initial prototype
+- Basic message generation
 
 ---
 
 # Current Status
 
-Version: **0.1.0 (Application Baseline)**
+Version: 0.1.0
 
 Focus:
-- stabilize UI
-- ensure usability
-- prepare for deployment
+- stability
+- usability
+- deployment
 
 ---
 
