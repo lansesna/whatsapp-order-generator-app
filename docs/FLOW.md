@@ -1,17 +1,49 @@
 # FLOW — WhatsApp Order Generator
 
-## 1. User Flow
+---
 
-User
-→ Fill form
-→ Add items
-→ Generate
-→ Review
-→ Send / Copy
+## 1. Vendor Flow (Target)
+
+```
+
+Vendor setup
+→ define shop profile
+→ define product list
+→ system generates shareable URL
+→ vendor shares link to buyers
+
+```
+
+Notes:
+- Vendor flow is partially future (not fully implemented in v0.1)
+- Currently simulated via local config
 
 ---
 
-## 2. System Flow
+## 2. Buyer Flow (Current)
+
+```
+
+Buyer opens vendor page
+→ views order form
+→ selects products
+→ enters order details
+→ clicks "Generate Order"
+→ reviews message preview
+→ clicks:
+- Open WhatsApp
+- Copy Message
+- Copy Link
+
+```
+
+Outcome:
+- WhatsApp opens with structured order message
+- or message/link is copied
+
+---
+
+## 3. System Flow (Implementation)
 
 ```
 
@@ -33,7 +65,7 @@ UI update (preview + actions)
 
 ---
 
-## 3. Data Flow
+## 4. Data Flow
 
 ```
 
@@ -41,33 +73,25 @@ Form Input
 → structured object
 → validated
 → normalized
-→ formatted string
-→ encoded URL
+→ formatted message string
+→ encoded WhatsApp URL
 
 ```
 
----
-
-## 4. Key Principle
-
-Single source of truth:
-
-message → preview + WhatsApp link
-
-No duplication.
+Key rule:
+- message string is single source of truth
 
 ---
 
 ## 5. UI Layout (Wireframe)
 
-### Mobile
-
-```
 ### Mobile Layout
 
---------------------------------
-WhatsApp Order Generator
---------------------------------
+```
+
+---
+
+## WhatsApp Order Generator
 
 Nama Pelanggan
 [________________________]
@@ -81,32 +105,133 @@ Catatan [...]
 
 [ Generate Order ]
 
---------------------------------
-Preview
---------------------------------
+---
+
+## Preview
 
 [ Open WhatsApp ]
 [ Copy Message ] [ Copy Link ]
+
 ```
 
 ---
 
-### Desktop
-
-```
 ### Desktop Layout
 
--------------------------------------------------------
-Order Form                    Preview
--------------------------------------------------------
+```
+
+---
+
+## Order Form                    Preview
 
 [input form]                  [message]
 
--------------------------------------------------------
+---
+
 [ Generate ]
 
-                               [ Open WhatsApp ]
-                               [ Copy ] [ Link ]
 ```
+                           [ Open WhatsApp ]
+                           [ Copy ] [ Link ]
+```
+
+```
+
+---
+
+## 6. Current vs Target Flow
+
+### Current (v0.1)
+
+```
+
+Static page
+→ config-driven product list
+→ buyer fills form
+→ system generates message
+→ WhatsApp link opens
+
+```
+
+---
+
+### Target (v1.0)
+
+```
+
+Vendor config
+→ vendor-specific page
+→ buyer interacts with page
+→ system generates message
+→ WhatsApp order sent to vendor
+
+```
+
+---
+
+## 7. Node Interaction Flow
+
+```
+
+Application
+→ Input Validator
+→ Message Composer
+→ Message Formatter
+→ WhatsApp Message Generator (Very Small Tool)
+
+```
+
+Notes:
+- Application orchestrates flow
+- Very Small tool handles WhatsApp transport
+- responsibilities must remain separated
+
+---
+
+## 8. Key Principles
+
+### Single Source of Truth
+```
+
+message string → preview + WhatsApp link
+
+```
+
+---
+
+### Deterministic Output
+```
+
+same input → same message → same link
+
+```
+
+---
+
+### Separation of Concerns
+
+- form.js → input extraction
+- input-validator.js → validation
+- message-composer.js → structure
+- message-formatter.js → final message
+- whatsapp-url.js → transport
+- app.js → UI orchestration
+
+---
+
+## 9. Failure Handling
+
+- missing customer name → block
+- no valid items → block
+- invalid quantity → corrected to minimum
+- invalid state → preview reset
+
+---
+
+## 10. Performance Expectations
+
+- instant preview (<100ms)
+- smooth interaction with multiple items
+- minimal DOM re-rendering
 
 ---

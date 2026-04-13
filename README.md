@@ -2,54 +2,95 @@
 
 ## Overview
 
-A lightweight application to generate structured WhatsApp order messages from a simple form input.
+WhatsApp Order Generator is a lightweight web application that allows vendors to create a simple shareable order page so buyers can submit structured orders via WhatsApp.
 
-This project is intentionally scoped as an **order-intent generator**, not an order management system.
+This project is intentionally designed as a **minimal order-intent system**, not a full order management platform.
 
 ---
 
 ## Product Position
 
-WhatsApp Order Generator is a user-facing Application under BUSINESS K-01.
+This is a **user-facing Application** under BUSINESS K-01.
 
-It helps sellers quickly create structured WhatsApp order messages without needing a full ordering system.
+It consumes reusable nodes (Very Small tools and optionally Small modules) and combines them with UI and flow logic to deliver a usable product.
 
 ---
 
 ## Current Status
 
-v0.1 — Application Baseline (UI implemented)
+Version: **v0.1.0 (Application Baseline)**
+
+- Static frontend implementation
+- Buyer-side order flow fully functional
+- Ready for static hosting deployment
+- No backend or persistence yet
 
 ---
 
 ## Purpose
 
-Provide a simple tool that generates WhatsApp order messages from structured input.
+Enable vendors to receive **complete, structured WhatsApp orders** from buyers with minimal friction.
 
 Goals:
-- ensure order completeness
-- standardize message format
+- eliminate incomplete order messages
+- standardize order format
 - reduce manual clarification
+- provide a fast, mobile-friendly ordering experience
 
 ---
 
 ## Target Users
 
-- WhatsApp-based sellers
-- Instagram / TikTok sellers
-- Dropship agents
-- Small businesses without e-commerce systems
+### Vendors
+- small business sellers using WhatsApp
+- Instagram / TikTok / Facebook sellers
+- dropship agents
+
+### Buyers
+- customers placing orders through shared vendor links
 
 ---
 
-## User Flow
+## v1.0 Product Scope (Target)
 
-1. Open app
-2. Fill customer details
-3. Add items
-4. Click "Generate Order"
-5. Review preview
-6. Open WhatsApp / Copy
+The intended product flow:
+
+```
+
+Vendor setup
+→ vendor defines shop profile and products
+→ system provides unique shareable URL
+→ vendor shares URL
+
+Buyer flow
+→ buyer opens vendor page
+→ selects products
+→ fills order details
+→ clicks send
+→ WhatsApp opens with structured order message
+
+```
+
+---
+
+## Current Implementation Scope
+
+The current build supports:
+
+- buyer-facing order form
+- multi-item product selection
+- input validation
+- structured message generation
+- WhatsApp link generation
+- message preview
+- copy / open WhatsApp actions
+- local storage (customer draft)
+
+Limitations:
+- single vendor (config-based)
+- no vendor registration
+- no persistent database
+- no unique URL routing
 
 ---
 
@@ -59,10 +100,13 @@ Goals:
 
 Order Form
 ↓
+Input Validator
+↓
 Message Composer
-├─ Input Validator
-├─ Message Formatter
-└─ WhatsApp URL Encoder
+↓
+Message Formatter
+↓
+WhatsApp Message Generator (Very Small Tool)
 ↓
 Preview / Copy / Open WhatsApp
 
@@ -72,28 +116,44 @@ Preview / Copy / Open WhatsApp
 
 ## Features
 
-- Multi-item order form
-- Collapsible item sections
-- Live message preview
-- WhatsApp link generation
-- Copy message / link
-- Local storage (name + phone)
-- Mobile-first UI
-- Static deployment
+### Order Input
+- customer name (required)
+- optional phone number
+- multi-item order support
+- product selection (config-driven)
+- quantity and notes
+
+### Output
+- structured WhatsApp message
+- encoded WhatsApp link
+- live preview
+- copy message
+- copy link
+- open WhatsApp
+
+### UI
+- mobile-first layout
+- collapsible item sections
+- responsive design
+- instant preview updates
 
 ---
 
-## System Composition (v0.1)
+## System Composition
 
-Small:
-- Message Composer
+This Application consumes reusable nodes:
 
-Very Small:
+### Very Small
+- WhatsApp Message Generator (transport / link generation)
+
+### Local Application Logic
 - Input Validator
+- Message Composer
 - Message Formatter
-- WhatsApp URL Encoder
 
-No Medium systems used.
+Notes:
+- Some logic is currently implemented locally for speed
+- These may later be extracted into reusable nodes when justified
 
 ---
 
@@ -101,23 +161,27 @@ No Medium systems used.
 
 ### In Scope
 - order input
-- message generation
-- WhatsApp link
-- preview & actions
+- structured message generation
+- WhatsApp delivery
+- preview and user actions
 
 ### Out of Scope
-- order management
-- payments
-- inventory
-- CRM
-- automation
+- payment processing
+- inventory management
+- order tracking
+- CRM / customer database
+- automation / chatbot
+- multi-vendor dashboard
+- marketplace features
 
 ---
 
 ## Deployment
 
-- Static hosting (Netlify / Vercel / GitHub Pages)
-- No backend required
+Current deployment model:
+
+- static hosting (Netlify / Vercel / GitHub Pages)
+- no backend required
 
 ---
 
@@ -127,11 +191,13 @@ No Medium systems used.
 - CSS
 - Vanilla JavaScript
 
+No frameworks. No build step.
+
 ---
 
 ## Project Structure
 
-```text
+```
 index.html
 css/style.css
 js/config.js
@@ -148,29 +214,74 @@ docs/
 
 ## Edge Cases
 
-* Empty form → blocked
-* Invalid quantity → corrected to minimum 1
-* Special characters → encoded
-* Long messages → WhatsApp limitation
+* empty customer name → blocked
+* no valid item → blocked
+* invalid quantity → normalized to minimum 1
+* special characters → URL encoded
+* long message → limited by WhatsApp
+
+---
+
+## Persistence Strategy
+
+Current:
+
+* static frontend only
+* local storage for draft data
+
+Planned evolution:
+
+1. static application (current)
+2. local/embedded persistence
+3. hosted backend (only after cost and usage are understood)
 
 ---
 
 ## Future Direction
 
-* UI refinement
-* presets
-* local persistence improvements
+* improved validation UX (inline feedback)
+* vendor-configurable product list
+* shop profile display
+* unique vendor page routing
+* lightweight persistence layer
+
+Reusable nodes may be extracted when patterns stabilize.
 
 ---
 
-## Identity
+## Conceptual Identity
 
-This is:
+This system is:
 
-Order Message Generator
+→ a vendor-configured WhatsApp order page
 
 Not:
 
-E-commerce system
+→ an e-commerce platform
+→ an order management system
+→ a marketplace
+
+---
+
+## Node Reusability Principle
+
+A reusable node may originate from a specific system lineage, but is not restricted to that lineage.
+
+This Application consumes reusable nodes (such as the WhatsApp Message Generator) without redefining their responsibilities.
+
+---
+
+## Conclusion
+
+A minimal, fast, and practical way to turn unstructured WhatsApp orders into structured, ready-to-send messages.
+
+Focus:
+
+* usability
+* speed
+* correctness
+
+Expand only when necessary.
+
 
 ---
