@@ -14,6 +14,36 @@ Uses `0.x.x` until a stable product baseline is reached.
 
 ---
 
+## [0.1.2] - 2026-04-13
+
+### Added
+
+Agent-governance documentation baseline:
+
+- added `AGENT.md`
+- added `CONSTRAINTS.md`
+- added `DECISIONS.md`
+- added `ROADMAP.md`
+- added `docs/STRUCTURE.md`
+- added `docs/TASKS.md`
+
+### Changed
+
+- rewrote `README.md` to align with Application identity and vendor → buyer product model
+- rewrote `docs/PRODUCT.md` to reflect vendor-configured WhatsApp order page scope
+- rewrote `docs/FLOW.md` to include vendor flow, buyer flow, system flow, and node interaction flow
+- refined `docs/SETUP.md` for static-first production deployment and config-driven setup
+- corrected governance wording to separate the Application from PCB1-Q01 identity
+- clarified reusable node consumption at Application level
+
+### Notes
+
+- This release establishes the first Codex-ready governance baseline for the repository
+- Functional behavior remains largely unchanged
+- Main impact is repository clarity, execution safety, and development discipline
+
+---
+
 ## [0.1.1] - 2026-04-13
 
 ### Changed
