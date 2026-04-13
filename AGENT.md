@@ -250,6 +250,31 @@ Optimize for:
 
 ---
 
+## Agent and Task Structure
+
+Agent definitions are stored in:
+
+docs/agents/
+
+Task execution files are stored in:
+
+docs/tasks/
+
+Rules:
+
+- docs/agents/ contains reusable agent protocols (e.g., release-governor)
+- docs/tasks/ contains execution instances (e.g., release-v0.1.3)
+- docs/TASKS.md remains the single source of truth for backlog
+
+Execution priority:
+
+AGENT.md → CONSTRAINTS.md → DECISIONS.md → ROADMAP.md → docs/TASKS.md → docs/tasks/* → NOTES.md
+
+Do not treat docs/tasks/ as backlog.
+Do not implement tasks unless defined in docs/TASKS.md or explicitly instructed.
+
+---
+
 ## Planning File Priority
 
 Use planning documents in this order:

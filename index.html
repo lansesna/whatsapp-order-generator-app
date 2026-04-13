@@ -16,6 +16,7 @@
   <header class="app-header">
     <h1>WhatsApp Order Generator</h1>
     <p>Generate structured WhatsApp order messages.</p>
+    <p id="shopNameLabel"></p>
   </header>
 
   <main class="app-main">
@@ -63,6 +64,13 @@
         <button type="button" id="generateBtn">
           Generate Order
         </button>
+
+        <p
+          id="validationFeedback"
+          class="validation-feedback"
+          role="alert"
+          aria-live="polite"
+        ></p>
       </form>
     </section>
 

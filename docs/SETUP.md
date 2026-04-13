@@ -62,30 +62,50 @@ Example:
 
 ```
 const APP_CONFIG = {
-  merchantName: "Nama Kedai",
-  merchantPhone: "60123456789"
+  vendor: {
+    name: "Nama Kedai",
+    phone: "60123456789"
+  }
 };
 ```
 
-* `merchantName` → displayed in UI
-* `merchantPhone` → used for WhatsApp message delivery
+* `vendor.name` -> displayed in UI
+* `vendor.phone` -> used for WhatsApp message delivery
 
 ---
 
 ### Product List
 
 ```
-const PRODUCT_OPTIONS = [
-  "Produk A",
-  "Produk B",
-  "Produk C"
-];
+const APP_CONFIG = {
+  products: ["Produk A", "Produk B", "Produk C"]
+};
 ```
 
 Used for:
 
 * dropdown selection
 * order input
+
+---
+
+### App Settings
+
+```
+const APP_CONFIG = {
+  settings: {
+    previewPlaceholder: "Preview mesej...",
+    previewStateText: {
+      empty: "Isi maklumat untuk mula.",
+      invalid: "Betulkan maklumat pesanan."
+    },
+    localStorageKeys: {
+      customerName: "wag_lastCustomerName",
+      customerPhone: "wag_lastCustomerPhone"
+    }
+  }
+};
+```
 
 ---
 
@@ -227,3 +247,4 @@ This application is:
 Future improvements will add configurability and persistence without breaking current simplicity.
 
 ---
+

@@ -14,6 +14,37 @@ Uses `0.x.x` until a stable product baseline is reached.
 
 ---
 
+## [0.1.3] - 2026-04-13
+
+### Added
+
+Core UX and configuration updates completed:
+
+- TASK-001: inline validation feedback area in UI (non-alert validation flow)
+- TASK-002: explicit preview states for empty, invalid, and valid conditions
+- TASK-003: config-driven vendor/shop name display in header
+- TASK-004: refined header hierarchy with vendor identity as primary focus
+
+Repository execution structure introduced:
+
+- added `docs/agents/release-governor.md`
+- added `docs/tasks/release-v0.1.3.md`
+- added `docs/RELEASE.md`
+
+### Changed
+
+- restructured application config into `vendor`, `products`, and `settings` sections
+- aligned runtime config reads across `app.js`, `form.js`, and `whatsapp-url.js`
+- updated `docs/SETUP.md` to match current config structure
+- updated `docs/TASKS.md` to include TASK-004 insertion and consistent subsequent numbering
+
+### Notes
+
+- Application remains static-first (HTML/CSS/Vanilla JS), frontend-only, and single-vendor per deployment
+- No backend, database, framework, or routing architecture introduced in this release
+
+---
+
 ## [0.1.2] - 2026-04-13
 
 ### Added
@@ -149,14 +180,13 @@ Initial prototype:
 
 # Current Status
 
-Version: **0.1.1**
+Version: **0.1.3**
 
 Current focus:
 
-- documentation governance cleanup
-- production-safe static deployment
-- vendor/buyer product alignment
-- agent-ready repository guidance
+- UX refinement and non-disruptive validation experience
+- vendor-configured static deployment hardening
+- release governance consistency and execution discipline
 
 ---
 

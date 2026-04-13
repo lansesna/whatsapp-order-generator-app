@@ -222,6 +222,22 @@ If uncertain, choose:
 
 ---
 
+## 16. Agent Structure Constraint
+
+The following structure must be respected:
+
+- docs/agents/ → reusable agent definitions
+- docs/tasks/ → execution instances
+- docs/TASKS.md → canonical backlog
+
+Rules:
+
+- do NOT duplicate tasks across TASKS.md and docs/tasks/
+- do NOT treat docs/tasks/ as backlog
+- do NOT modify agent definitions for single execution
+
+---
+
 ## Summary
 
 These constraints ensure:

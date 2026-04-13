@@ -272,6 +272,23 @@ When unsure:
 
 ---
 
+## 18. Agent Execution Model
+
+Decision:
+
+The repository uses a structured agent model:
+
+- reusable agents defined in docs/agents/
+- execution runs defined in docs/tasks/
+- canonical backlog defined in docs/TASKS.md
+
+Reason:
+- separate behavior, planning, and execution
+- enable repeatable release governance
+- support controlled agent-assisted development
+
+---
+
 ## Summary
 
 These decisions define:

@@ -16,7 +16,7 @@ function populateProductOptions(selectElement) {
   }
 
   const defaultOption = '<option value="">Pilih produk</option>';
-  selectElement.innerHTML = defaultOption + buildProductOptionsHtml(PRODUCT_OPTIONS);
+  selectElement.innerHTML = defaultOption + buildProductOptionsHtml(APP_CONFIG.products || []);
 }
 
 function escapeHtml(value) {

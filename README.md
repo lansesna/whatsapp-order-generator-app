@@ -18,10 +18,12 @@ It consumes reusable nodes (Very Small tools and optionally Small modules) and c
 
 ## Current Status
 
-Version: **v0.1.0 (Application Baseline)**
+Version: **v0.1.3**
 
 - Static frontend implementation
 - Buyer-side order flow fully functional
+- Config-driven vendor identity and product setup
+- Improved inline validation and preview-state UX
 - Ready for static hosting deployment
 - No backend or persistence yet
 
@@ -208,6 +210,8 @@ js/message-formatter.js
 js/whatsapp-url.js
 js/app.js
 docs/
+  agents/    → agent definitions (e.g., release-governor)
+  tasks/     → execution runs (e.g., release-v0.1.3)
 ````
 
 ---
@@ -239,10 +243,9 @@ Planned evolution:
 
 ## Future Direction
 
-* improved validation UX (inline feedback)
-* vendor-configurable product list
-* shop profile display
-* unique vendor page routing
+* improve item interaction UX
+* vendor-specific static routing
+* lightweight vendor config file format
 * lightweight persistence layer
 
 Reusable nodes may be extracted when patterns stabilize.

@@ -32,7 +32,27 @@ docs/
   SETUP.md
   STRUCTURE.md
   TASKS.md
+
+  agents/
+    release-governor.md
+
+  tasks/
+    (execution files, e.g., release-v0.1.3.md)
 ````
+
+### docs/agents/
+
+- contains reusable agent definitions
+- defines behavior and execution protocols
+- must remain generic and reusable
+
+---
+
+### docs/tasks/
+
+- contains execution instances (task runs, releases)
+- used to trigger agent workflows
+- not a backlog
 
 ---
 

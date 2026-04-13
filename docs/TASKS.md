@@ -47,7 +47,7 @@ Current focus:
 
 ## TASK-001 — Replace alert-based validation with inline feedback
 
-Status: `todo`
+Status: `done`
 
 Goal:
 Remove disruptive `alert()` usage and show validation errors inside the UI.
@@ -77,7 +77,7 @@ Definition of done:
 
 ## TASK-002 — Improve preview state handling
 
-Status: `todo`
+Status: `done`
 
 Goal:
 Make preview state clearer for empty, invalid, and valid conditions.
@@ -106,7 +106,7 @@ Definition of done:
 
 ## TASK-003 — Add vendor/shop header from config
 
-Status: `todo`
+Status: `done`
 
 Goal:
 Display vendor/shop identity in the UI using config-driven data.
@@ -133,9 +133,76 @@ Definition of done:
 
 ---
 
-## TASK-004 — Restructure vendor config for future growth
+## TASK-004 — Refine header hierarchy and reserve vendor profile section
 
-Status: `todo`
+Status: `done`
+
+Goal:
+Make the vendor identity the main visual focus in the header and prepare a dedicated header/profile area for future vendor profile expansion.
+
+Why:
+
+- vendor name should be the primary identity on the page
+- current header hierarchy gives too much emphasis to the generic app name
+- prepares a stable UI area for future vendor profile fields without redesigning the layout later
+
+Current issue:
+
+- `WhatsApp Order Generator` appears more prominent than vendor identity
+- supporting text may compete with or overshadow vendor branding
+
+Desired direction:
+
+- vendor/shop name should be larger and more prominent
+- `WhatsApp Order Generator` should become secondary/supporting text
+- supporting tagline should be reviewed:
+
+  - keep only if it supports clarity
+  - reduce or remove if it competes with vendor identity
+- reserve a clear header/profile section for future vendor information
+
+Future-ready profile area may later support:
+
+- vendor/shop name
+- short description
+- contact info
+- shop note
+- logo/image placeholder
+
+Likely files:
+
+- `index.html`
+- `css/style.css`
+- `js/app.js`
+- optionally `js/config.js` if profile fields need placeholder structure
+
+Rules:
+
+- keep static-first
+- no backend
+- no auth
+- no database
+- no routing changes
+- do not overbuild a full profile system yet
+- focus on hierarchy and reserved structure only
+
+Definition of done:
+
+- vendor/shop name is visually dominant in header
+- app name is secondary
+- header tagline is either reduced, rewritten, or removed based on clarity
+- a dedicated vendor profile/header section exists in the layout
+- current single-vendor static deployment still works
+- layout remains mobile-first and clean
+
+Suggested note:
+This task is about **visual hierarchy and layout reservation**, not full vendor profile functionality.
+
+---
+
+## TASK-005 — Restructure vendor config for future growth
+
+Status: `to do`
 
 Goal:
 Make config more vendor-oriented and easier to evolve.
@@ -164,7 +231,7 @@ Definition of done:
 
 ---
 
-## TASK-005 — Improve item interaction UX
+## TASK-006 — Improve item interaction UX
 
 Status: `todo`
 
@@ -192,7 +259,7 @@ Definition of done:
 
 ---
 
-## TASK-006 — Prepare vendor-specific static routing
+## TASK-007 — Prepare vendor-specific static routing
 
 Status: `deferred`
 
@@ -232,7 +299,7 @@ Definition of done:
 
 ---
 
-## TASK-007 — Add lightweight vendor config file format
+## TASK-008 — Add lightweight vendor config file format
 
 Status: `deferred`
 
@@ -268,7 +335,7 @@ Definition of done:
 
 ---
 
-## TASK-008 — Improve copy/open action feedback
+## TASK-009 — Improve copy/open action feedback
 
 Status: `todo`
 
@@ -300,7 +367,7 @@ Definition of done:
 
 ---
 
-## TASK-009 — Production deployment checklist alignment
+## TASK-010 — Production deployment checklist alignment
 
 Status: `todo`
 
@@ -331,7 +398,7 @@ Definition of done:
 
 ---
 
-## TASK-010 — Prepare extraction boundary for reusable WhatsApp transport
+## TASK-011 — Prepare extraction boundary for reusable WhatsApp transport
 
 Status: `deferred`
 
@@ -371,9 +438,9 @@ Recommended near-term execution:
 1. TASK-001 — inline validation
 2. TASK-002 — preview state handling
 3. TASK-003 — vendor/shop header
-4. TASK-005 — item interaction UX
-5. TASK-008 — action feedback
-6. TASK-009 — deployment checklist alignment
+4. TASK-006 — item interaction UX
+5. TASK-009 — action feedback
+6. TASK-010 — deployment checklist alignment
 
 ---
 

@@ -88,19 +88,31 @@ body {
 }
 
 .app-header h1 {
-  font-family: var(--font-display);
+  font-family: var(--font-mono);
   font-weight: 700;
-  font-size: clamp(1.35rem, 5vw, 1.7rem);
-  letter-spacing: -0.01em;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   line-height: 1.2;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.15rem;
 }
 
-.app-header p {
-  font-size: 0.78rem;
-  color: rgba(253, 252, 248, 0.65);
+.app-header p:not(#shopNameLabel) {
+  font-size: 0.62rem;
+  color: rgba(253, 252, 248, 0.58);
   letter-spacing: 0.04em;
   text-transform: uppercase;
+}
+
+#shopNameLabel {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 6vw, 2rem);
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.01em;
+  text-transform: none;
+  line-height: 1.15;
+  margin-bottom: 0.35rem;
 }
 
 .app-main {
@@ -390,6 +402,14 @@ textarea {
   box-shadow: 0 1px 4px rgba(30, 58, 47, 0.25);
 }
 
+.validation-feedback {
+  min-height: 1.2rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--red);
+  letter-spacing: 0.03em;
+}
+
 #messageBox {
   font-family: var(--font-mono);
   font-size: 0.83rem;
@@ -402,6 +422,17 @@ textarea {
   border-radius: var(--radius-md);
   padding: 1rem 1.1rem;
   min-height: 170px;
+}
+
+#messageBox[data-state="empty"] {
+  color: var(--muted);
+  background: var(--surface);
+}
+
+#messageBox[data-state="invalid"] {
+  color: var(--red);
+  background: #fff5f2;
+  border-color: #e0b4ac;
 }
 
 .actions {

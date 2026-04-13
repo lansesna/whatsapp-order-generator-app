@@ -3,7 +3,7 @@ function normalizeWhatsAppPhone(phone) {
 }
 
 function generateWhatsAppURL(message) {
-  const phone = normalizeWhatsAppPhone(APP_CONFIG.merchantPhone);
+  const phone = normalizeWhatsAppPhone(APP_CONFIG.vendor && APP_CONFIG.vendor.phone);
   const encodedMessage = encodeURIComponent(message);
 
   if (!phone) {

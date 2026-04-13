@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const copyMessageBtn = document.getElementById("copyMessageBtn");
   const copyLinkBtn = document.getElementById("copyLinkBtn");
   const messageBox = document.getElementById("messageBox");
+  const validationFeedback = document.getElementById("validationFeedback");
+  const shopNameLabel = document.getElementById("shopNameLabel");
 
   const customerNameInput = document.getElementById("customerName");
   const customerPhoneInput = document.getElementById("customerPhone");
@@ -19,27 +21,74 @@ document.addEventListener("DOMContentLoaded", function () {
     copyLinkBtn.disabled = isDisabled;
   }
 
+  function renderShopIdentity() {
+    if (!shopNameLabel) {
+      return;
+    }
+
+    shopNameLabel.textContent = (APP_CONFIG.vendor && APP_CONFIG.vendor.name) || "Kedai";
+  }
+
+  function setPreviewState(state, text) {
+    messageBox.dataset.state = state;
+    messageBox.textContent = text;
+  }
+
+  function hasMeaningfulItemInput(item) {
+    return Boolean(
+      item.product ||
+      (item.note && item.note.trim()) ||
+      Number(item.qty) > 1
+    );
+  }
+
+  function isEmptyOrderState(orderData) {
+    if (orderData.customerName || orderData.customerPhone) {
+      return false;
+    }
+
+    return !orderData.items.some(hasMeaningfulItemInput);
+  }
+
   function resetPreview() {
     currentMessage = "";
     currentWhatsAppURL = "";
-    messageBox.textContent = APP_CONFIG.previewPlaceholder;
+    const previewStateText = APP_CONFIG.settings && APP_CONFIG.settings.previewStateText;
+    const previewPlaceholder = APP_CONFIG.settings && APP_CONFIG.settings.previewPlaceholder;
+    setPreviewState("empty", (previewStateText && previewStateText.empty) || previewPlaceholder);
     setButtonsDisabled(true);
   }
 
+  function renderValidationFeedback(validationMessage) {
+    validationFeedback.textContent = validationMessage || "";
+  }
+
   function saveCustomerDraft(orderData) {
+    const localStorageKeys = APP_CONFIG.settings && APP_CONFIG.settings.localStorageKeys;
+
+    if (!localStorageKeys) {
+      return;
+    }
+
     localStorage.setItem(
-      APP_CONFIG.localStorageKeys.customerName,
+      localStorageKeys.customerName,
       orderData.customerName || ""
     );
     localStorage.setItem(
-      APP_CONFIG.localStorageKeys.customerPhone,
+      localStorageKeys.customerPhone,
       orderData.customerPhone || ""
     );
   }
 
   function restoreCustomerDraft() {
-    const savedName = localStorage.getItem(APP_CONFIG.localStorageKeys.customerName);
-    const savedPhone = localStorage.getItem(APP_CONFIG.localStorageKeys.customerPhone);
+    const localStorageKeys = APP_CONFIG.settings && APP_CONFIG.settings.localStorageKeys;
+
+    if (!localStorageKeys) {
+      return;
+    }
+
+    const savedName = localStorage.getItem(localStorageKeys.customerName);
+    const savedPhone = localStorage.getItem(localStorageKeys.customerPhone);
 
     if (savedName) {
       customerNameInput.value = savedName;
@@ -63,12 +112,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function updateOrderPreview() {
     const orderData = getOrderFormData();
-    const validation = validateOrderData(orderData);
 
-    if (!validation.valid) {
+    if (isEmptyOrderState(orderData)) {
+      renderValidationFeedback("");
       resetPreview();
       return;
     }
+
+    const validation = validateOrderData(orderData);
+
+    if (!validation.valid) {
+      renderValidationFeedback(validation.message);
+      currentMessage = "";
+      currentWhatsAppURL = "";
+      const previewStateText = APP_CONFIG.settings && APP_CONFIG.settings.previewStateText;
+      const previewPlaceholder = APP_CONFIG.settings && APP_CONFIG.settings.previewPlaceholder;
+      setPreviewState("invalid", (previewStateText && previewStateText.invalid) || previewPlaceholder);
+      setButtonsDisabled(true);
+      return;
+    }
+
+    renderValidationFeedback("");
 
     const output = buildCurrentOutput(orderData);
 
@@ -77,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     saveCustomerDraft(orderData);
 
-    messageBox.textContent = currentMessage;
+    setPreviewState("valid", currentMessage);
     setButtonsDisabled(false);
   }
 
@@ -153,14 +217,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   generateBtn.addEventListener("click", function () {
-    const orderData = getOrderFormData();
-    const validation = validateOrderData(orderData);
-
-    if (!validation.valid) {
-      alert(validation.message);
-      return;
-    }
-
     updateOrderPreview();
   });
 
@@ -212,6 +268,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   restoreCustomerDraft();
+  renderShopIdentity();
   bindStaticFieldEvents();
   bindItemContainerEvents();
   setupInitialItem();
