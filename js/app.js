@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
   let currentMessage = "";
   let currentWhatsAppURL = "";
+  let lastValidMessage = "";
+  let lastValidWhatsAppURL = "";
 
   const addItemBtn = document.getElementById("addItemBtn");
   const openWhatsAppBtn = document.getElementById("openWhatsAppBtn");
@@ -33,6 +35,10 @@ document.addEventListener("DOMContentLoaded", function () {
   function getInvalidPreviewGuidance() {
     return previewStateText.invalid ||
       "Preview ditangguhkan. Betulkan maklumat pada mesej ralat di atas.";
+  }
+
+  function getInvalidWithLastValidGuidance() {
+    return "Perubahan semasa belum lengkap. Preview menunjukkan versi sah terakhir.";
   }
 
   function setButtonsDisabled(isDisabled) {
@@ -92,6 +98,8 @@ document.addEventListener("DOMContentLoaded", function () {
   function resetPreview() {
     currentMessage = "";
     currentWhatsAppURL = "";
+    lastValidMessage = "";
+    lastValidWhatsAppURL = "";
     setPreviewState("empty", getEmptyPreviewGuidance());
     setButtonsDisabled(true);
   }
@@ -189,10 +197,23 @@ document.addEventListener("DOMContentLoaded", function () {
     const validation = validateOrderData(orderData);
 
     if (!validation.valid) {
-      renderValidationFeedback(validation.message);
+      const hasLastValidPreview = Boolean(lastValidMessage && lastValidWhatsAppURL);
+
+      if (hasLastValidPreview) {
+        renderValidationFeedback(`${validation.message}. ${getInvalidWithLastValidGuidance()}`);
+      } else {
+        renderValidationFeedback(validation.message);
+      }
+
       currentMessage = "";
       currentWhatsAppURL = "";
-      setPreviewState("invalid", getInvalidPreviewGuidance());
+
+      if (hasLastValidPreview) {
+        setPreviewState("stale-invalid", lastValidMessage);
+      } else {
+        setPreviewState("invalid", getInvalidPreviewGuidance());
+      }
+
       setButtonsDisabled(true);
       return;
     }
@@ -203,6 +224,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     currentMessage = output.message;
     currentWhatsAppURL = output.url;
+    lastValidMessage = output.message;
+    lastValidWhatsAppURL = output.url;
 
     saveCustomerDraft(orderData);
 

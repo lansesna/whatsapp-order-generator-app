@@ -14,6 +14,42 @@ Uses `0.x.x` until a stable product baseline is reached.
 
 ---
 
+## [0.1.6] - 2026-04-14
+
+### Added
+
+- TASK-018: simple feedback/report mechanism via external footer contact action (developer channel).
+
+### Changed
+
+- completed release scope tasks:
+  - TASK-017: preserve last valid preview during temporary invalid transitions.
+  - TASK-018: provide direct external feedback/report entry point.
+  - TASK-019: lightweight UI modernization (typography, spacing rhythm, clearer collapse affordance).
+- kept actions disabled when current form state is invalid, including stale-preview-invalid transitions.
+- updated static asset cache-busting query strings in `index.html` to `?v=0.1.6`.
+
+### UPDATE (Documentation-Only)
+
+- added release task definition for `v0.1.6`:
+  - `docs/tasks/release-v0.1.6.md`
+- synchronized product/version behavior wording to `v0.1.6` in:
+  - `README.md`
+  - `ROADMAP.md`
+  - `docs/FLOW.md`
+- updated NOTES lifecycle alignment:
+  - NOTE-021 -> Completed (TASK-018)
+  - NOTE-022 -> Partially addressed (TASK-017)
+  - NOTE-023 -> Completed (TASK-019)
+- included TASKS normalization and status consistency updates for TASK-017, TASK-018, TASK-019.
+
+### Notes
+
+- application remains static-first, frontend-only, and single-vendor per deployment.
+- TASK-010 and TASK-012 remain deferred and are not included in this release.
+
+---
+
 ## [0.1.5] - 2026-04-14
 
 ### Added
@@ -254,12 +290,12 @@ Initial prototype:
 
 # Current Status
 
-Version: **0.1.5**
+Version: **0.1.6**
 
 Current focus:
 
-- usability-focused UX refinement and interaction clarity
-- release-governor readiness for `v0.1.5`
+- usability-focused UX refinement, interaction stability, and lightweight UI modernization
+- release-governor readiness for `v0.1.6`
 - preserving lightweight static architecture while improving documentation and governance alignment
 
 ---

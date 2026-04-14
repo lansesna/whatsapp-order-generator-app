@@ -13,7 +13,7 @@ It guides:
 
 ## Current Version
 
-v0.1.5 - UX Clarity and Interaction Refinement Baseline
+v0.1.6 - UX Stability, Feedback Loop, and Lightweight UI Modernization Baseline
 
 Status:
 - static frontend
@@ -25,8 +25,10 @@ Status:
 Current focus:
 
 - maintain live-preview-first UX clarity
+- preserve last-valid preview context during temporary invalid transitions
 - keep vendor-oriented static configuration stable
 - preserve mobile-first interaction quality
+- keep feedback channel developer-facing (separate from vendor contact)
 - ensure production-safe static deployment behavior
 
 Not in current scope:

@@ -10,7 +10,7 @@
     content="Generate structured WhatsApp order messages quickly."
   >
 
-  <link rel="stylesheet" href="css/style.css?v=0.1.5">
+  <link rel="stylesheet" href="css/style.css?v=0.1.6">
 </head>
 <body>
   <header class="app-header">
@@ -104,6 +104,12 @@
 
   <footer class="app-footer">
     <p>WhatsApp Order Generator</p>
+    <a
+      class="feedback-link"
+      href="mailto:azlanibr@gmail.com?subject=WhatsApp%20Order%20Generator%20Feedback"
+    >
+      Lapor Isu / Beri Maklum Balas
+    </a>
   </footer>
 
   <template id="orderItemTemplate">
@@ -114,7 +120,7 @@
         aria-expanded="true"
       >
         <span class="order-item-toggle-left">
-          <span class="order-item-chevron">⌄</span>
+          <span class="order-item-chevron" aria-hidden="true">&#9662;</span>
           <span class="order-item-title">Item 1</span>
           <span class="order-item-summary">Belum dipilih</span>
         </span>
@@ -154,12 +160,12 @@
     </article>
   </template>
 
-  <script src="js/config.js?v=0.1.5"></script>
-  <script src="js/form.js?v=0.1.5"></script>
-  <script src="js/input-validator.js?v=0.1.5"></script>
-  <script src="js/message-composer.js?v=0.1.5"></script>
-  <script src="js/message-formatter.js?v=0.1.5"></script>
-  <script src="js/whatsapp-url.js?v=0.1.5"></script>
-  <script src="js/app.js?v=0.1.5"></script>
+  <script src="js/config.js?v=0.1.6"></script>
+  <script src="js/form.js?v=0.1.6"></script>
+  <script src="js/input-validator.js?v=0.1.6"></script>
+  <script src="js/message-composer.js?v=0.1.6"></script>
+  <script src="js/message-formatter.js?v=0.1.6"></script>
+  <script src="js/whatsapp-url.js?v=0.1.6"></script>
+  <script src="js/app.js?v=0.1.6"></script>
 </body>
 </html>

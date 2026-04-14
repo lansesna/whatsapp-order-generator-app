@@ -41,7 +41,10 @@ Outcome:
 - or message/link is copied
 - item card summaries stay in sync with product, qty, and concise note context
 - add/remove item flow keeps mobile context stable (new item revealed, focus directed, reduced jump on remove)
+- temporary invalid edits keep last valid preview visible while actions remain disabled
 - subtle hint reminds buyer that confirmation continues in WhatsApp with vendor
+- footer provides simple external feedback/report action (developer channel, separate from vendor contact)
+- collapse/expand affordance is visually clearer for faster item scanning
 - action status is shown inline (non-blocking feedback)
 - interaction is fully live-preview-first (no manual generate step)
 
@@ -225,6 +228,7 @@ same input → same message → same link
 - missing customer name -> block
 - no valid items -> block
 - invalid quantity -> corrected to minimum
+- invalid after previously valid -> keep last valid preview visible + show correction guidance + disable actions
 - invalid state -> correction guidance shown in preview + validation message
 ---
 

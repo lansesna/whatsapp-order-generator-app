@@ -419,26 +419,22 @@ Goal:
 Make repo ready for safe static hosting deployment.
 
 Why:
-
-* v1.0 aims for production hosting
-* deployment path must be clean and documented
+- v1.0 aims for production hosting
+- deployment path must be clean and documented
 
 Likely files:
-
-* `README.md`
-* `docs/SETUP.md`
-* `ROADMAP.md`
+- `README.md`
+- `docs/SETUP.md`
+- `ROADMAP.md`
 
 Rules:
-
-* no backend assumptions
-* static hosting remains primary path
+- no backend assumptions
+- static hosting remains primary path
 
 Definition of done:
-
-* setup docs match actual deployment flow
-* config expectations are documented
-* production-safe static baseline is clear
+- setup docs match actual deployment flow
+- config expectations are documented
+- production-safe static baseline is clear
 
 ---
 
@@ -450,28 +446,24 @@ Goal:
 Document and prepare a clean boundary for later extraction of transport logic into reusable Very Small node usage.
 
 Why:
-
-* align with K-01 reusable node governance
-* avoid future confusion
+- align with K-01 reusable node governance
+- avoid future confusion
 
 Likely files:
-
-* `AGENT.md`
-* `DECISIONS.md`
-* `docs/STRUCTURE.md`
-* optional code adapter later
+- `AGENT.md`
+- `DECISIONS.md`
+- `docs/STRUCTURE.md`
+- optional code adapter later
 
 Rules:
-
-* do not force extraction now
-* keep current local implementation working
-* document conceptual ownership clearly
+- do not force extraction now
+- keep current local implementation working
+- document conceptual ownership clearly
 
 Definition of done:
-
-* extraction boundary is documented
-* no current functionality broken
-* future extraction path is clear
+- extraction boundary is documented
+- no current functionality broken
+- future extraction path is clear
 
 ---
 
@@ -481,61 +473,45 @@ Status: `done`
 
 Goal:
 Make it immediately clear to users:
+- why preview is empty
+- what is missing
+- what action is required
 
-* why preview is empty
-* what is missing
-* what action is required
-
-Example
-
-* “Isi nama pelanggan untuk lihat preview”
-* “Pilih sekurang-kurangnya satu produk”
-* disable WhatsApp button with visible reason
+Example:
+- “Isi nama pelanggan untuk lihat preview”
+- “Pilih sekurang-kurangnya satu produk”
+- disable WhatsApp button with visible reason
 
 Why:
-
-* reduces confusion during first-time use
-* improves conversion from input → action
-* aligns with live-preview-first model
+- reduces confusion during first-time use
+- improves conversion from input → action
+- aligns with live-preview-first model
 
 Likely files:
-
-* `js/app.js`
-* `css/style.css`
-* `README.md`
-* `docs/FLOW.md`
+- `js/app.js`
+- `css/style.css`
+- `README.md`
+- `docs/FLOW.md`
 
 Rules:
-
-* do not add blocking UI (no modal)
-* keep messaging simple and inline
-* do not change validation logic ownership
-* empty and invalid states must be clearly distinguished:
-  - empty → onboarding guidance (what to fill)
-  - invalid → correction guidance (what to fix)
-* valid preview must remain the exact output from message-formatter.js (no modification)
+- do not add blocking UI (no modal)
+- keep messaging simple and inline
+- do not change validation logic ownership
+- empty and invalid states must be clearly distinguished:
+  - empty → onboarding guidance
+  - invalid → correction guidance
+- valid preview must remain the exact output from message-formatter.js
 
 Definition of done:
+- empty state clearly explains what is missing
+- invalid state clearly indicates issue
+- user can understand next step without guessing
+- empty and invalid states are visually and textually distinguishable
+- valid state remains unchanged from current behavior
+- no change to message pipeline
 
-* empty state clearly explains what is missing
-* invalid state clearly indicates issue
-* user can understand next step without guessing
-* no change to message pipeline
-* empty and invalid states are visually and textually distinguishable
-* valid state remains unchanged from current behavior
-
-Related NOTE from NOTES.md:
-
-→ **NOTE-007 (Action feedback UX consistency)**
-Update NOTE-007:
-
-```markdown
-### Status
-Partially addressed
-
-### Superseded By
-TASK-009, TASK-012
-```
+Related NOTE:
+- NOTE-007
 
 ---
 
@@ -545,54 +521,38 @@ Status: `done`
 
 Goal:
 Make item interaction smoother on mobile:
-
-* correct scroll behavior
-* intuitive focus
-* stable interaction after add/remove
+- correct scroll behavior
+- intuitive focus
+- stable interaction after add/remove
 
 Example:
-
-* after “Tambah Item”, auto-scroll to new item
-* focus on product dropdown
-* after remove, no jumpy layout
+- after “Tambah Item”, auto-scroll to new item
+- focus on product dropdown
+- after remove, no jumpy layout
 
 Why:
-
-* mobile is primary usage context
-* current behavior is functional but not optimized
-* improves speed of real order entry
+- mobile is primary usage context
+- improves speed of real order entry
+- reduces interaction friction
 
 Likely files:
-
-* `js/form.js`
-* `js/app.js`
-* `css/style.css`
+- `js/form.js`
+- `js/app.js`
+- `css/style.css`
 
 Rules:
-
-* do not change data structure
-* do not introduce heavy animation
-* keep logic simple and predictable
+- do not change data structure
+- do not introduce heavy animation
+- keep logic simple and predictable
 
 Definition of done:
+- new item is visible immediately
+- focus behavior is correct
+- remove action does not disrupt layout
+- interaction feels stable on repeated use
 
-* new item is visible immediately
-* focus behavior is correct
-* remove action does not disrupt layout
-* interaction feels stable on repeated use
-
-Related NOTE from NOTES.md:
-
-→ **NOTE-006 (Mobile interaction friction)**
-Update NOTE-006:
-
-```markdown
-### Status
-Partially addressed
-
-### Superseded By
-TASK-008, TASK-013
-```
+Related NOTE:
+- NOTE-006
 
 ---
 
@@ -602,61 +562,36 @@ Status: `done`
 
 Goal:
 Ensure item summary always clearly represents:
-
-* product
-* quantity
-* important note (if any)
+- product
+- quantity
+- important note (if any)
 
 Example:
-
-Instead of:
-
-```
-Sambal Original x1
-```
-
-Better:
-
-```
-Sambal Original x2 — kurang pedas
-```
+- Sambal Original x2
+- Sambal Original x2 — kurang pedas
 
 Why:
-
-* prevents misreading before sending
-* important when multiple items exist
-* reduces cognitive load
+- prevents misreading before sending
+- reduces cognitive load
+- improves multi-item clarity
 
 Likely files:
-
-* `js/form.js`
-* `css/style.css`
+- `js/form.js`
+- `css/style.css`
 
 Rules:
-
-* do not duplicate message formatting logic
-* summary is UI-only, not message logic
-* keep text short and readable
+- do not duplicate message formatting logic
+- summary is UI-only
+- keep text short and readable
 
 Definition of done:
+- summary updates immediately after changes
+- summary reflects key info clearly
+- works for multiple items
+- no layout break
 
-* summary updates immediately after changes
-* summary reflects key info clearly
-* works for multiple items
-* no layout break
-
-Related NOTE from NOTES.md:
-
-→ **NOTE-002 (Item ambiguity)**
-Update NOTE-002:
-
-```markdown
-### Status
-Partially addressed
-
-### Superseded By
-TASK-015
-```
+Related NOTE:
+- NOTE-002
 
 ---
 
@@ -668,50 +603,148 @@ Goal:
 Provide a small, optional hint to guide user behavior after sending order.
 
 Example:
-
-Below preview or action area:
-
-```
-Sila sahkan pesanan dengan vendor selepas hantar
-```
+- “Sila sahkan pesanan dengan vendor selepas hantar”
 
 Why:
-
-* reduces confusion in WhatsApp conversation
-* helps mitigate duplicate/unconfirmed order issue
-* no system-level complexity required
+- reduces confusion in WhatsApp conversation
+- helps mitigate duplicate/unconfirmed orders
+- no system-level complexity required
 
 Likely files:
-
-* `index.html`
-* `js/config.js` (optional text config)
-* `css/style.css`
-* `README.md`
+- `index.html`
+- `js/config.js`
+- `css/style.css`
+- `README.md`
 
 Rules:
-
-* must be non-blocking
-* must be optional or subtle
-* do not simulate order confirmation system
+- must be non-blocking
+- must be subtle
+- do not simulate confirmation system
 
 Definition of done:
+- hint is visible but not intrusive
+- improves clarity of next step
+- no behavior change required
 
-* hint is visible but not intrusive
-* improves clarity of next step
-* no behavior change required
+Related NOTE:
+- NOTE-004
 
-Related NOTE from NOTES.md:
+---
 
-→ **NOTE-004 (Duplicate/unconfirmed orders)**
-Update NOTE-004:
+## TASK-017 — Preserve last valid preview during temporary invalid state
 
-```markdown
-### Status
-Partially addressed
+Status: `done`
 
-### Superseded By
-TASK-015
-```
+Goal:
+Prevent preview from resetting when a new empty or invalid item is temporarily introduced after a valid order already exists.
+
+Example:
+- user completes item 1 and item 2 → preview valid
+- user accidentally clicks “add item”
+- item 3 is empty
+- preview remains showing last valid order
+- inline message indicates new item is incomplete
+- action buttons are disabled until validity restored
+
+Why:
+- avoids loss of context
+- improves user confidence
+- reduces frustration in multi-item flow
+
+Likely files:
+- `js/app.js`
+- `js/input-validator.js` (read-only usage only)
+- `css/style.css`
+
+Rules:
+- do NOT modify validation rules
+- do NOT change message formatting
+- preview must remain accurate representation of last valid state
+- action buttons must remain disabled when current state is invalid
+- no partial submission behavior
+
+Definition of done:
+- last valid preview persists during temporary invalid state
+- user clearly understands what needs to be fixed
+- no misleading preview/action mismatch
+- no regression in validation pipeline
+
+---
+
+## TASK-018 — Add simple feedback / bug report mechanism
+
+Status: `done`
+
+Goal:
+Allow users to easily report issues or contact developer directly from the app.
+
+Example:
+- “Report issue” link/button
+- opens WhatsApp / email / external link
+
+Why:
+- enables real feedback loop
+- critical for early vendor testing
+- low implementation complexity
+
+Likely files:
+- `index.html`
+- `js/config.js` (optional)
+- `css/style.css`
+
+Rules:
+- must be non-intrusive
+- no form submission system
+- no backend
+- simple external link only
+- keep UI minimal
+
+Definition of done:
+- user can easily access feedback option
+- no impact on core flow
+- works on mobile and desktop
+
+---
+
+## TASK-019 — UI modernization (lightweight pass)
+
+Status: `done`
+
+Goal:
+Improve visual clarity and modern feel of the UI without introducing new frameworks or complexity.
+
+Example:
+- improve typography
+- improve spacing
+- improve icon clarity
+- improve visual hierarchy
+- replace collapse arrow with clearer icon (e.g., ▾ or ▼)
+- improve font stack (system font or Inter)
+- increase font hierarchy (title, label, input)
+- improve spacing between sections
+- improve button and interaction feedback
+
+Why:
+- improves perceived quality
+- improves usability
+- aligns with modern UI expectations
+
+Likely files:
+- `index.html`
+- `css/style.css`
+
+Rules:
+- do NOT introduce UI frameworks
+- do NOT change core logic
+- do NOT redesign layout structure completely
+- keep changes incremental and safe
+- preserve current functionality
+
+Definition of done:
+- UI is visibly more readable and modern
+- collapse interaction is clear and discoverable
+- typography and spacing improved
+- no regression in functionality
 
 ---
 
@@ -737,9 +770,9 @@ Do not introduce frameworks, backend logic, or new architecture.
 
 # Notes
 
-* Tasks may be updated as roadmap evolves
-* Only approved work should be added here
-* Keep tasks small enough for safe execution
+- Tasks may be updated as roadmap evolves
+- Only approved work should be added here
+- Keep tasks small enough for safe execution
 
 ---
 
@@ -749,9 +782,9 @@ This file defines the executable backlog for the Application.
 
 Use:
 
-* `ROADMAP.md` for approved direction
-* `TASKS.md` for actual implementation work
-* `NOTES.md` for raw thinking only
+- `ROADMAP.md` for approved direction
+- `TASKS.md` for actual implementation work
+- `NOTES.md` for raw thinking only
 
 ---
 

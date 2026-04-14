@@ -18,7 +18,7 @@ It consumes reusable nodes (Very Small tools and optionally Small modules) and c
 
 ## Current Status
 
-Version: **v0.1.5**
+Version: **v0.1.6**
 
 - static frontend application
 - single vendor config-driven setup
@@ -143,7 +143,10 @@ Preview / Copy / Open WhatsApp
 - clearer item-card summaries (product, qty, concise note snippet when useful)
 - safer multi-item remove behavior (single-item floor maintained)
 - clearer preview-state guidance (empty vs invalid)
+- last valid preview is preserved during temporary invalid edits (actions stay disabled until fixed)
 - subtle post-send hint reminds buyer to confirm details with vendor in WhatsApp
+- lightweight feedback/report link is available in footer (external contact path)
+- modernized visual pass: clearer hierarchy, improved spacing rhythm, and stronger collapse affordance
 
 ### Live Preview
 
@@ -203,7 +206,7 @@ Current deployment model:
 - no backend required
 
 Deployment note:
-- static assets use version query strings (`?v=0.1.5`) to reduce stale browser-cache issues after release updates
+- static assets use version query strings (`?v=0.1.6`) to reduce stale browser-cache issues after release updates
 
 ---
 
