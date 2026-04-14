@@ -10,13 +10,17 @@ function buildProductOptionsHtml(products) {
     .join("");
 }
 
+function getConfiguredProducts() {
+  return APP_CONFIG.products || [];
+}
+
 function populateProductOptions(selectElement) {
   if (!selectElement) {
     return;
   }
 
   const defaultOption = '<option value="">Pilih produk</option>';
-  selectElement.innerHTML = defaultOption + buildProductOptionsHtml(APP_CONFIG.products || []);
+  selectElement.innerHTML = defaultOption + buildProductOptionsHtml(getConfiguredProducts());
 }
 
 function escapeHtml(value) {
@@ -31,7 +35,9 @@ function escapeHtml(value) {
 function getItemSummaryText(itemData) {
   const product = itemData.product || "Belum dipilih";
   const qty = Number(itemData.qty) > 0 ? `x${Number(itemData.qty)}` : "x1";
-  return `${product} ${qty}`;
+  const hasNote = Boolean(itemData.note && itemData.note.trim());
+  const noteText = hasNote ? " + nota" : "";
+  return `${product} ${qty}${noteText}`;
 }
 
 function updateOrderItemHeader(orderItemEl, index) {
@@ -40,20 +46,29 @@ function updateOrderItemHeader(orderItemEl, index) {
 
   const product = orderItemEl.querySelector(".item-product").value;
   const qty = orderItemEl.querySelector(".item-qty").value || "1";
+  const note = orderItemEl.querySelector(".item-note").value || "";
 
   titleEl.textContent = `Item ${index + 1}`;
-  summaryEl.textContent = product ? `${product} x${qty}` : "Belum dipilih";
+  summaryEl.textContent = getItemSummaryText({
+    product: product,
+    qty: qty,
+    note: note
+  });
   orderItemEl.dataset.itemIndex = String(index);
 }
 
 function refreshAllItemHeaders() {
   const items = document.querySelectorAll(".order-item");
+  const canRemove = items.length > 1;
 
   items.forEach(function (item, index) {
     updateOrderItemHeader(item, index);
 
+    const actions = item.querySelector(".order-item-actions");
     const removeText = item.querySelector(".order-item-remove-text");
-    removeText.textContent = items.length === 1 ? "" : "Buang";
+
+    removeText.textContent = canRemove ? "Buang" : "Minimum 1 item";
+    actions.classList.toggle("is-disabled", !canRemove);
   });
 }
 
@@ -90,6 +105,7 @@ function addOrderItem(initialData) {
 function removeOrderItem(itemEl) {
   const container = document.getElementById("orderItemsContainer");
   const items = container.querySelectorAll(".order-item");
+  const nextItem = itemEl.nextElementSibling || itemEl.previousElementSibling;
 
   if (items.length <= 1) {
     return;
@@ -97,6 +113,14 @@ function removeOrderItem(itemEl) {
 
   itemEl.remove();
   refreshAllItemHeaders();
+
+  if (nextItem) {
+    const nextToggle = nextItem.querySelector(".order-item-toggle");
+
+    if (nextToggle) {
+      nextToggle.focus();
+    }
+  }
 }
 
 function toggleOrderItem(itemEl) {

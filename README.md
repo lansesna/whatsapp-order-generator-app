@@ -18,14 +18,14 @@ It consumes reusable nodes (Very Small tools and optionally Small modules) and c
 
 ## Current Status
 
-Version: **v0.1.3**
+Version: **v0.1.4**
 
-- Static frontend implementation
-- Buyer-side order flow fully functional
-- Config-driven vendor identity and product setup
-- Improved inline validation and preview-state UX
-- Ready for static hosting deployment
-- No backend or persistence yet
+- static frontend application
+- single vendor config-driven setup
+- live-preview-first message generation
+- no Generate Order button
+- non-blocking inline action feedback for open/copy actions
+- ready for static hosting deployment
 
 ---
 
@@ -132,12 +132,26 @@ Preview / Copy / Open WhatsApp
 - copy message
 - copy link
 - open WhatsApp
+- non-blocking inline action feedback (open/copy status)
 
 ### UI
 - mobile-first layout
 - collapsible item sections
 - responsive design
 - instant preview updates
+- clearer item-card summaries (product, qty, note indicator)
+- safer multi-item remove behavior (single-item floor maintained)
+
+### Live Preview
+
+Order message is generated automatically as user input becomes valid.
+
+No manual "Generate Order" step is required.
+
+Primary interaction flow:
+- fill form fields
+- preview updates automatically
+- use Open WhatsApp / Copy actions when valid
 
 ---
 
@@ -185,6 +199,9 @@ Current deployment model:
 - static hosting (Netlify / Vercel / GitHub Pages)
 - no backend required
 
+Deployment note:
+- static assets use version query strings (`?v=0.1.4`) to reduce stale browser-cache issues after release updates
+
 ---
 
 ## Tech Stack
@@ -213,6 +230,45 @@ docs/
   agents/    → agent definitions (e.g., release-governor)
   tasks/     → execution runs (e.g., release-v0.1.3)
 ````
+
+---
+
+## Config Baseline
+
+The application uses a single structured config object in `js/config.js`:
+
+```js
+const APP_CONFIG = {
+  vendor: {
+    name: "Kedai Sambal",
+    phone: "60123456789"
+  },
+  products: ["Sambal Pedas", "Sambal Original", "Sambal Extra Pedas"],
+  settings: {
+    previewPlaceholder: "Preview mesej akan muncul di sini apabila maklumat wajib diisi.",
+    previewStateText: {
+      empty: "Isi maklumat pelanggan dan pilih item untuk lihat preview mesej.",
+      invalid: "Preview belum tersedia. Sila betulkan maklumat pesanan."
+    },
+    localStorageKeys: {
+      customerName: "wag_lastCustomerName",
+      customerPhone: "wag_lastCustomerPhone"
+    }
+  }
+};
+```
+
+Usage boundary:
+- `vendor` -> shop identity and WhatsApp destination
+- `products` -> order item selection list
+- `settings` -> UI text and local draft storage keys
+
+Header profile support under `vendor`:
+- `name` (required visual anchor)
+- `description` (optional)
+- `contactLabel` (optional)
+- `note` (optional)
+- `hasLogoPlaceholder` (optional reserved layout slot)
 
 ---
 

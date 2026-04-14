@@ -13,13 +13,27 @@ It guides:
 
 ## Current Version
 
-v0.1.0 — Application Baseline
+v0.1.4 - UX and Deployment Readiness Baseline
 
 Status:
 - static frontend
 - buyer-side order flow working
 - WhatsApp message generation functional
+- vendor-oriented config baseline stabilized (`vendor`, `products`, `settings`)
 - ready for static hosting
+
+Current focus:
+
+- maintain live-preview-first UX clarity
+- keep vendor-oriented static configuration stable
+- preserve mobile-first interaction quality
+- ensure production-safe static deployment behavior
+
+Not in current scope:
+
+- routing
+- backend
+- persistence
 
 ---
 
@@ -193,3 +207,4 @@ Focus on delivering value first.
 Expand only when necessary.
 
 ---
+

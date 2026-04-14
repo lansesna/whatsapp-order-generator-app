@@ -24,22 +24,24 @@ Notes:
 
 ```
 
-Buyer opens vendor page
-→ views order form
-→ selects products
-→ enters order details
-→ clicks "Generate Order"
-→ reviews message preview
-→ clicks:
-- Open WhatsApp
-- Copy Message
-- Copy Link
+1. Open vendor page
+2. Fill in order details
+3. Add one or more items
+4. Preview updates automatically in real-time
+5. No manual "Generate Order" step
+6. When satisfied, choose action:
+   - Open WhatsApp
+   - Copy message
+   - Copy link
 
 ```
 
 Outcome:
 - WhatsApp opens with structured order message
 - or message/link is copied
+- item card summaries stay in sync with product, qty, and note presence
+- action status is shown inline (non-blocking feedback)
+- interaction is fully live-preview-first (no manual generate step)
 
 ---
 
@@ -103,8 +105,6 @@ Catatan [...]
 
 [ + Tambah Item ]
 
-[ Generate Order ]
-
 ---
 
 ## Preview
@@ -127,8 +127,6 @@ Catatan [...]
 [input form]                  [message]
 
 ---
-
-[ Generate ]
 
 ```
                            [ Open WhatsApp ]

@@ -10,13 +10,22 @@
     content="Generate structured WhatsApp order messages quickly."
   >
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=0.1.4">
 </head>
 <body>
   <header class="app-header">
-    <h1>WhatsApp Order Generator</h1>
-    <p>Generate structured WhatsApp order messages.</p>
-    <p id="shopNameLabel"></p>
+    <div class="app-header-brand">
+      <h1>WhatsApp Order Generator</h1>
+      <p class="app-header-tagline">Generate structured WhatsApp order messages.</p>
+    </div>
+
+    <section class="vendor-profile" aria-label="Vendor profile">
+      <p id="shopNameLabel" class="vendor-profile-name"></p>
+      <p id="vendorDescriptionLabel" class="vendor-profile-description"></p>
+      <p id="vendorContactLabel" class="vendor-profile-contact"></p>
+      <p id="vendorNoteLabel" class="vendor-profile-note"></p>
+      <div id="vendorLogoPlaceholder" class="vendor-profile-logo" aria-hidden="true"></div>
+    </section>
   </header>
 
   <main class="app-main">
@@ -61,10 +70,6 @@
           </button>
         </div>
 
-        <button type="button" id="generateBtn">
-          Generate Order
-        </button>
-
         <p
           id="validationFeedback"
           class="validation-feedback"
@@ -91,6 +96,8 @@
       <button id="copyLinkBtn" type="button" disabled>
         Salin Link
       </button>
+
+      <p id="actionFeedback" class="action-feedback" aria-live="polite"></p>
     </section>
   </main>
 
@@ -146,12 +153,12 @@
     </article>
   </template>
 
-  <script src="js/config.js"></script>
-  <script src="js/form.js"></script>
-  <script src="js/input-validator.js"></script>
-  <script src="js/message-composer.js"></script>
-  <script src="js/message-formatter.js"></script>
-  <script src="js/whatsapp-url.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/config.js?v=0.1.4"></script>
+  <script src="js/form.js?v=0.1.4"></script>
+  <script src="js/input-validator.js?v=0.1.4"></script>
+  <script src="js/message-composer.js?v=0.1.4"></script>
+  <script src="js/message-formatter.js?v=0.1.4"></script>
+  <script src="js/whatsapp-url.js?v=0.1.4"></script>
+  <script src="js/app.js?v=0.1.4"></script>
 </body>
 </html>

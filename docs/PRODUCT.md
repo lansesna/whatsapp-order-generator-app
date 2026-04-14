@@ -80,8 +80,9 @@ Vendor sets up shop profile and product list
 Buyer opens vendor page
 → selects products
 → enters order details
-→ clicks "Send"
-→ WhatsApp opens with structured order
+→ preview updates automatically
+→ clicks "Buka WhatsApp" (or copy message/link)
+WhatsApp opens with structured order
 
 ```
 
@@ -110,7 +111,7 @@ This is intentionally not:
 
 ---
 
-## Current Implementation (v0.1)
+## Current Implementation (v0.1.4)
 
 - static frontend application
 - single vendor configuration (via config)
@@ -118,6 +119,8 @@ This is intentionally not:
 - structured message generation
 - WhatsApp integration
 - mobile-first UI
+- live-preview-first interaction (no manual generate step)
+- non-blocking action feedback for open/copy actions
 
 Limitations:
 - no vendor registration
@@ -216,3 +219,4 @@ A minimal product that turns messy WhatsApp ordering into a structured, reliable
 Deliver value first. Expand only when necessary.
 
 ---
+

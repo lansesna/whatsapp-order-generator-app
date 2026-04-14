@@ -97,14 +97,27 @@ body {
   margin-bottom: 0.15rem;
 }
 
-.app-header p:not(#shopNameLabel) {
+.app-header-tagline {
   font-size: 0.62rem;
   color: rgba(253, 252, 248, 0.58);
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
-#shopNameLabel {
+.app-header-brand {
+  margin-bottom: 0.75rem;
+}
+
+.vendor-profile {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid rgba(253, 252, 248, 0.2);
+  border-radius: var(--radius-md);
+  background: rgba(253, 252, 248, 0.05);
+}
+
+.vendor-profile-name {
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 6vw, 2rem);
   font-weight: 700;
@@ -112,7 +125,36 @@ body {
   letter-spacing: -0.01em;
   text-transform: none;
   line-height: 1.15;
-  margin-bottom: 0.35rem;
+}
+
+.vendor-profile-description,
+.vendor-profile-contact,
+.vendor-profile-note {
+  font-size: 0.72rem;
+  color: rgba(253, 252, 248, 0.85);
+}
+
+.vendor-profile-note {
+  font-style: italic;
+}
+
+.vendor-profile-logo {
+  display: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1px dashed rgba(253, 252, 248, 0.4);
+  margin-top: 0.25rem;
+}
+
+.vendor-profile-description:empty,
+.vendor-profile-contact:empty,
+.vendor-profile-note:empty {
+  display: none;
+}
+
+.vendor-profile-logo.is-visible {
+  display: block;
 }
 
 .app-main {
@@ -330,6 +372,10 @@ textarea {
   letter-spacing: 0.04em;
 }
 
+.order-item-actions.is-disabled {
+  color: var(--muted);
+}
+
 .order-item-body {
   padding: 1rem;
   border-top: 1px solid var(--border);
@@ -367,39 +413,6 @@ textarea {
 .add-item-icon {
   font-size: 1.15rem;
   line-height: 1;
-}
-
-#generateBtn {
-  margin-top: 0.5rem;
-  width: 100%;
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--white);
-  background: var(--green);
-  border: none;
-  border-radius: var(--radius-md);
-  padding: 0.9rem 1.5rem;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: background var(--transition), box-shadow var(--transition), transform var(--transition);
-  box-shadow: var(--shadow-btn);
-}
-
-#generateBtn::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
-  pointer-events: none;
-}
-
-#generateBtn:active {
-  transform: translateY(0);
-  box-shadow: 0 1px 4px rgba(30, 58, 47, 0.25);
 }
 
 .validation-feedback {
@@ -440,6 +453,22 @@ textarea {
   grid-template-columns: 1fr 1fr;
   gap: 0.75rem;
   padding: 1rem;
+}
+
+.action-feedback {
+  grid-column: 1 / -1;
+  min-height: 1.2rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.action-feedback.is-success {
+  color: var(--green-mid);
+}
+
+.action-feedback.is-error {
+  color: var(--red);
 }
 
 .actions button {
@@ -505,12 +534,6 @@ button:disabled {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  #generateBtn:hover {
-    background: var(--green-mid);
-    box-shadow: 0 4px 16px rgba(30, 58, 47, 0.35);
-    transform: translateY(-1px);
-  }
-
   #openWhatsAppBtn:hover {
     background: var(--green-mid);
     border-color: var(--green-mid);
@@ -529,6 +552,10 @@ button:disabled {
 
   .order-item-toggle:hover {
     background: #e7e3d8;
+  }
+
+  .order-item-actions.is-disabled:hover {
+    color: var(--muted);
   }
 
   .add-item-btn:hover {
@@ -556,12 +583,6 @@ button:disabled {
 
   .order-item-body {
     padding: 1.1rem;
-  }
-
-  #generateBtn {
-    width: auto;
-    align-self: flex-end;
-    padding: 0.9rem 2.2rem;
   }
 
   .actions {

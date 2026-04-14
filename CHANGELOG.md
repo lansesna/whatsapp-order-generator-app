@@ -14,6 +14,39 @@ Uses `0.x.x` until a stable product baseline is reached.
 
 ---
 
+## [0.1.4] - 2026-04-14
+
+### Added
+
+- non-blocking inline action feedback for:
+  - Open WhatsApp
+  - Copy Message
+  - Copy Link
+- release task definition for `v0.1.4`:
+  - `docs/tasks/release-v0.1.4.md`
+
+### Changed
+
+- completed release scope tasks:
+  - TASK-005: stabilized vendor-oriented config model (`vendor`, `products`, `settings`)
+  - TASK-006: refined vendor-first header/profile hierarchy
+  - TASK-007: removed redundant Generate Order action from live-preview flow
+  - TASK-008: improved item-card add/remove/collapse predictability and summary sync
+  - TASK-009: replaced blocking action alerts with inline non-blocking feedback
+  - TASK-011: aligned production deployment checklist and docs
+- removed redundant manual generate action and confirmed live-preview-first interaction
+- improved item interaction predictability (add/remove/collapse/summary stability)
+- aligned deployment docs for static production readiness
+- added asset cache-busting query strings in `index.html` (`?v=0.1.4`)
+- aligned `README.md`, `docs/FLOW.md`, `docs/SETUP.md`, and `docs/TASKS.md` with current behavior
+
+### Notes
+
+- application remains static-first, frontend-only, and single-vendor per deployment
+- no backend, routing, persistence layer, or framework introduced
+
+---
+
 ## [0.1.3] - 2026-04-13
 
 ### Added
@@ -180,13 +213,13 @@ Initial prototype:
 
 # Current Status
 
-Version: **0.1.3**
+Version: **0.1.4**
 
 Current focus:
 
-- UX refinement and non-disruptive validation experience
-- vendor-configured static deployment hardening
-- release governance consistency and execution discipline
+- production-safe static deployment alignment
+- release-governor readiness for `v0.1.4`
+- preserving lightweight static architecture while improving UX polish
 
 ---
 

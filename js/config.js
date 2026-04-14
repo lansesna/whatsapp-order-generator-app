@@ -1,7 +1,11 @@
 const APP_CONFIG = {
   vendor: {
     name: "Kedai Sambal",
-    phone: "60123456789"
+    phone: "60163216939",
+    description: "",
+    contactLabel: "",
+    note: "",
+    hasLogoPlaceholder: false
   },
   products: [
     "Sambal Pedas",

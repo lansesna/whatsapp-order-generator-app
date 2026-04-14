@@ -2,18 +2,27 @@ document.addEventListener("DOMContentLoaded", function () {
   let currentMessage = "";
   let currentWhatsAppURL = "";
 
-  const generateBtn = document.getElementById("generateBtn");
   const addItemBtn = document.getElementById("addItemBtn");
   const openWhatsAppBtn = document.getElementById("openWhatsAppBtn");
   const copyMessageBtn = document.getElementById("copyMessageBtn");
   const copyLinkBtn = document.getElementById("copyLinkBtn");
   const messageBox = document.getElementById("messageBox");
   const validationFeedback = document.getElementById("validationFeedback");
+  const actionFeedback = document.getElementById("actionFeedback");
   const shopNameLabel = document.getElementById("shopNameLabel");
+  const vendorDescriptionLabel = document.getElementById("vendorDescriptionLabel");
+  const vendorContactLabel = document.getElementById("vendorContactLabel");
+  const vendorNoteLabel = document.getElementById("vendorNoteLabel");
+  const vendorLogoPlaceholder = document.getElementById("vendorLogoPlaceholder");
 
   const customerNameInput = document.getElementById("customerName");
   const customerPhoneInput = document.getElementById("customerPhone");
   const itemsContainer = document.getElementById("orderItemsContainer");
+  const vendorConfig = APP_CONFIG.vendor || {};
+  const appSettings = APP_CONFIG.settings || {};
+  const previewStateText = appSettings.previewStateText || {};
+  const localStorageKeys = appSettings.localStorageKeys || {};
+  let actionFeedbackTimer = null;
 
   function setButtonsDisabled(isDisabled) {
     openWhatsAppBtn.disabled = isDisabled;
@@ -26,7 +35,26 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    shopNameLabel.textContent = (APP_CONFIG.vendor && APP_CONFIG.vendor.name) || "Kedai";
+    shopNameLabel.textContent = vendorConfig.name || "Kedai Kak Ani";
+
+    if (vendorDescriptionLabel) {
+      vendorDescriptionLabel.textContent = vendorConfig.description || "";
+    }
+
+    if (vendorContactLabel) {
+      vendorContactLabel.textContent = vendorConfig.contactLabel || "";
+    }
+
+    if (vendorNoteLabel) {
+      vendorNoteLabel.textContent = vendorConfig.note || "";
+    }
+
+    if (vendorLogoPlaceholder) {
+      vendorLogoPlaceholder.classList.toggle(
+        "is-visible",
+        Boolean(vendorConfig.hasLogoPlaceholder)
+      );
+    }
   }
 
   function setPreviewState(state, text) {
@@ -53,9 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function resetPreview() {
     currentMessage = "";
     currentWhatsAppURL = "";
-    const previewStateText = APP_CONFIG.settings && APP_CONFIG.settings.previewStateText;
-    const previewPlaceholder = APP_CONFIG.settings && APP_CONFIG.settings.previewPlaceholder;
-    setPreviewState("empty", (previewStateText && previewStateText.empty) || previewPlaceholder);
+    setPreviewState("empty", previewStateText.empty || appSettings.previewPlaceholder || "");
     setButtonsDisabled(true);
   }
 
@@ -63,10 +89,32 @@ document.addEventListener("DOMContentLoaded", function () {
     validationFeedback.textContent = validationMessage || "";
   }
 
-  function saveCustomerDraft(orderData) {
-    const localStorageKeys = APP_CONFIG.settings && APP_CONFIG.settings.localStorageKeys;
+  function renderActionFeedback(message, status) {
+    if (!actionFeedback) {
+      return;
+    }
 
-    if (!localStorageKeys) {
+    actionFeedback.textContent = message || "";
+    actionFeedback.classList.remove("is-success", "is-error");
+
+    if (status === "success") {
+      actionFeedback.classList.add("is-success");
+    } else if (status === "error") {
+      actionFeedback.classList.add("is-error");
+    }
+
+    if (actionFeedbackTimer) {
+      clearTimeout(actionFeedbackTimer);
+    }
+
+    actionFeedbackTimer = setTimeout(function () {
+      actionFeedback.textContent = "";
+      actionFeedback.classList.remove("is-success", "is-error");
+    }, 2600);
+  }
+
+  function saveCustomerDraft(orderData) {
+    if (!localStorageKeys.customerName || !localStorageKeys.customerPhone) {
       return;
     }
 
@@ -81,9 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function restoreCustomerDraft() {
-    const localStorageKeys = APP_CONFIG.settings && APP_CONFIG.settings.localStorageKeys;
-
-    if (!localStorageKeys) {
+    if (!localStorageKeys.customerName || !localStorageKeys.customerPhone) {
       return;
     }
 
@@ -125,9 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
       renderValidationFeedback(validation.message);
       currentMessage = "";
       currentWhatsAppURL = "";
-      const previewStateText = APP_CONFIG.settings && APP_CONFIG.settings.previewStateText;
-      const previewPlaceholder = APP_CONFIG.settings && APP_CONFIG.settings.previewPlaceholder;
-      setPreviewState("invalid", (previewStateText && previewStateText.invalid) || previewPlaceholder);
+      setPreviewState("invalid", previewStateText.invalid || appSettings.previewPlaceholder || "");
       setButtonsDisabled(true);
       return;
     }
@@ -185,7 +229,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     itemsContainer.addEventListener("click", function (event) {
       const toggleBtn = event.target.closest(".order-item-toggle");
-      const removeText = event.target.closest(".order-item-remove-text");
+      const removeAction = event.target.closest(".order-item-actions");
 
       if (!toggleBtn) {
         return;
@@ -197,7 +241,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      if (removeText && document.querySelectorAll(".order-item").length > 1) {
+      if (removeAction && document.querySelectorAll(".order-item").length > 1) {
         event.stopPropagation();
         removeOrderItem(orderItem);
         updateOrderPreview();
@@ -208,6 +252,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  function bindActionFeedbackEvents() {
+    document.addEventListener("wag:action-feedback", function (event) {
+      const detail = event.detail || {};
+      renderActionFeedback(detail.message || "", detail.status || "");
+    });
+  }
+
   function setupInitialItem() {
     addOrderItem({
       product: "",
@@ -215,10 +266,6 @@ document.addEventListener("DOMContentLoaded", function () {
       note: ""
     });
   }
-
-  generateBtn.addEventListener("click", function () {
-    updateOrderPreview();
-  });
 
   addItemBtn.addEventListener("click", function () {
     const newItem = addOrderItem({
@@ -242,7 +289,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   openWhatsAppBtn.addEventListener("click", function () {
     if (!currentWhatsAppURL) {
-      alert("Generate order dahulu");
+      renderActionFeedback("Lengkapkan maklumat pesanan dahulu", "error");
       return;
     }
 
@@ -251,7 +298,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   copyMessageBtn.addEventListener("click", function () {
     if (!currentMessage) {
-      alert("Tiada mesej untuk disalin");
+      renderActionFeedback("Tiada mesej untuk disalin", "error");
       return;
     }
 
@@ -260,7 +307,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   copyLinkBtn.addEventListener("click", function () {
     if (!currentWhatsAppURL) {
-      alert("Tiada link untuk disalin");
+      renderActionFeedback("Tiada link untuk disalin", "error");
       return;
     }
 
@@ -271,6 +318,7 @@ document.addEventListener("DOMContentLoaded", function () {
   renderShopIdentity();
   bindStaticFieldEvents();
   bindItemContainerEvents();
+  bindActionFeedbackEvents();
   setupInitialItem();
   resetPreview();
 });

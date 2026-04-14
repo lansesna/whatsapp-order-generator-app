@@ -2,6 +2,15 @@ function normalizeWhatsAppPhone(phone) {
   return String(phone || "").replace(/[^\d]/g, "");
 }
 
+function emitActionFeedback(message, status) {
+  document.dispatchEvent(new CustomEvent("wag:action-feedback", {
+    detail: {
+      message: message,
+      status: status
+    }
+  }));
+}
+
 function generateWhatsAppURL(message) {
   const phone = normalizeWhatsAppPhone(APP_CONFIG.vendor && APP_CONFIG.vendor.phone);
   const encodedMessage = encodeURIComponent(message);
@@ -15,20 +24,21 @@ function generateWhatsAppURL(message) {
 
 function openWhatsAppChat(waUrl) {
   window.open(waUrl, "_blank", "noopener,noreferrer");
+  emitActionFeedback("WhatsApp dibuka pada tab baharu", "success");
 }
 
 function copyTextToClipboard(text, successMessage, errorMessage) {
   if (navigator.clipboard && navigator.clipboard.writeText) {
     return navigator.clipboard.writeText(text)
       .then(function () {
-        alert(successMessage);
+        emitActionFeedback(successMessage, "success");
       })
       .catch(function () {
-        fallbackCopyText(text, successMessage, errorMessage);
+        return fallbackCopyText(text, successMessage, errorMessage);
       });
   }
 
-  fallbackCopyText(text, successMessage, errorMessage);
+  return fallbackCopyText(text, successMessage, errorMessage);
 }
 
 function fallbackCopyText(text, successMessage, errorMessage) {
@@ -44,15 +54,17 @@ function fallbackCopyText(text, successMessage, errorMessage) {
   try {
     const copied = document.execCommand("copy");
     if (copied) {
-      alert(successMessage);
+      emitActionFeedback(successMessage, "success");
     } else {
-      alert(errorMessage);
+      emitActionFeedback(errorMessage, "error");
     }
   } catch (error) {
-    alert(errorMessage);
+    emitActionFeedback(errorMessage, "error");
   }
 
   document.body.removeChild(textArea);
+
+  return Promise.resolve();
 }
 
 function copyWhatsAppLink(waUrl) {

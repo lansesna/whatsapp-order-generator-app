@@ -109,6 +109,33 @@ const APP_CONFIG = {
 
 ---
 
+### Canonical Config Model
+
+Use one `APP_CONFIG` object that keeps all sections together:
+
+```
+const APP_CONFIG = {
+  vendor: {
+    name: "Nama Kedai",
+    phone: "60123456789"
+  },
+  products: ["Produk A", "Produk B", "Produk C"],
+  settings: {
+    previewPlaceholder: "Preview mesej...",
+    previewStateText: {
+      empty: "Isi maklumat untuk mula.",
+      invalid: "Betulkan maklumat pesanan."
+    },
+    localStorageKeys: {
+      customerName: "wag_lastCustomerName",
+      customerPhone: "wag_lastCustomerPhone"
+    }
+  }
+};
+```
+
+---
+
 ### Notes
 
 * configuration is static (no backend)
@@ -142,6 +169,11 @@ This application is designed for **static hosting**.
 3. Set root as public directory (if needed)
 
 4. Deploy
+
+5. Keep asset version query strings in `index.html` updated for each release, for example:
+   - `css/style.css?v=0.1.4`
+   - `js/app.js?v=0.1.4`
+   - this helps reduce stale browser cache after deploy
 
 ---
 
@@ -194,6 +226,7 @@ When modifying config:
 * keep phone number numeric (no spaces or symbols)
 * ensure product list is not empty
 * avoid breaking structure of config object
+* keep required production values filled (`vendor.name`, `vendor.phone`)
 
 ---
 
@@ -232,6 +265,7 @@ Check:
 * no framework is used
 * no build step required
 * changes are immediately visible after refresh
+* production deploy should be validated on a static host URL (not localhost-only assumptions)
 
 ---
 
