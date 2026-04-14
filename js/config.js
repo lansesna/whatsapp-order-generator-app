@@ -14,6 +14,7 @@ const APP_CONFIG = {
   ],
   settings: {
     previewPlaceholder: "Preview mesej akan muncul di sini apabila maklumat wajib diisi.",
+    orderFlowHint: "Selepas hantar, terus sahkan pesanan anda dengan vendor di WhatsApp.",
     previewStateText: {
       empty: "Isi maklumat pelanggan dan pilih item untuk lihat preview mesej.",
       invalid: "Preview belum tersedia. Sila betulkan maklumat pesanan."

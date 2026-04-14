@@ -39,7 +39,9 @@ Notes:
 Outcome:
 - WhatsApp opens with structured order message
 - or message/link is copied
-- item card summaries stay in sync with product, qty, and note presence
+- item card summaries stay in sync with product, qty, and concise note context
+- add/remove item flow keeps mobile context stable (new item revealed, focus directed, reduced jump on remove)
+- subtle hint reminds buyer that confirmation continues in WhatsApp with vendor
 - action status is shown inline (non-blocking feedback)
 - interaction is fully live-preview-first (no manual generate step)
 
@@ -219,11 +221,11 @@ same input → same message → same link
 
 ## 9. Failure Handling
 
-- missing customer name → block
-- no valid items → block
-- invalid quantity → corrected to minimum
-- invalid state → preview reset
-
+- empty state -> onboarding guidance shown in preview area
+- missing customer name -> block
+- no valid items -> block
+- invalid quantity -> corrected to minimum
+- invalid state -> correction guidance shown in preview + validation message
 ---
 
 ## 10. Performance Expectations
@@ -233,3 +235,4 @@ same input → same message → same link
 - minimal DOM re-rendering
 
 ---
+

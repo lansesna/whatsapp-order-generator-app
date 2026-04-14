@@ -111,7 +111,7 @@ This is intentionally not:
 
 ---
 
-## Current Implementation (v0.1.4)
+## Current Implementation (v0.1.5)
 
 - static frontend application
 - single vendor configuration (via config)

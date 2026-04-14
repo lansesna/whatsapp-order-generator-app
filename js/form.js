@@ -14,6 +14,41 @@ function getConfiguredProducts() {
   return APP_CONFIG.products || [];
 }
 
+function isMobileViewport() {
+  return window.matchMedia("(max-width: 767px)").matches;
+}
+
+function getScrollBehavior() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return "auto";
+  }
+
+  return "smooth";
+}
+
+function revealOrderItem(itemEl, blockPosition) {
+  if (!itemEl) {
+    return;
+  }
+
+  itemEl.scrollIntoView({
+    behavior: getScrollBehavior(),
+    block: blockPosition || "nearest"
+  });
+}
+
+function focusOrderItemPrimaryField(itemEl) {
+  if (!itemEl) {
+    return;
+  }
+
+  const firstField = itemEl.querySelector(".item-product");
+
+  if (firstField) {
+    firstField.focus({ preventScroll: true });
+  }
+}
+
 function populateProductOptions(selectElement) {
   if (!selectElement) {
     return;
@@ -33,11 +68,21 @@ function escapeHtml(value) {
 }
 
 function getItemSummaryText(itemData) {
-  const product = itemData.product || "Belum dipilih";
-  const qty = Number(itemData.qty) > 0 ? `x${Number(itemData.qty)}` : "x1";
-  const hasNote = Boolean(itemData.note && itemData.note.trim());
-  const noteText = hasNote ? " + nota" : "";
-  return `${product} ${qty}${noteText}`;
+  const product = String(itemData.product || "").trim();
+  const qtyNumber = Number(itemData.qty) > 0 ? Number(itemData.qty) : 1;
+  const qty = `x${qtyNumber}`;
+  const note = String(itemData.note || "").trim().replace(/\s+/g, " ");
+
+  if (!product) {
+    return "Belum dipilih";
+  }
+
+  if (note.length < 4) {
+    return `${product} ${qty}`;
+  }
+
+  const shortNote = note.length > 20 ? `${note.slice(0, 20)}...` : note;
+  return `${product} ${qty} - ${shortNote}`;
 }
 
 function updateOrderItemHeader(orderItemEl, index) {
@@ -106,21 +151,28 @@ function removeOrderItem(itemEl) {
   const container = document.getElementById("orderItemsContainer");
   const items = container.querySelectorAll(".order-item");
   const nextItem = itemEl.nextElementSibling || itemEl.previousElementSibling;
+  const removedRect = itemEl.getBoundingClientRect();
 
   if (items.length <= 1) {
-    return;
+    return null;
   }
 
   itemEl.remove();
   refreshAllItemHeaders();
 
+  if (isMobileViewport() && removedRect.top < 0) {
+    window.scrollBy(0, -removedRect.height);
+  }
+
   if (nextItem) {
     const nextToggle = nextItem.querySelector(".order-item-toggle");
 
     if (nextToggle) {
-      nextToggle.focus();
+      nextToggle.focus({ preventScroll: true });
     }
   }
+
+  return nextItem;
 }
 
 function toggleOrderItem(itemEl) {

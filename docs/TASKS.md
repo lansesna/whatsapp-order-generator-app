@@ -475,12 +475,251 @@ Definition of done:
 
 ---
 
+## TASK-013 — Improve empty and invalid state clarity
+
+Status: `done`
+
+Goal:
+Make it immediately clear to users:
+
+* why preview is empty
+* what is missing
+* what action is required
+
+Example
+
+* “Isi nama pelanggan untuk lihat preview”
+* “Pilih sekurang-kurangnya satu produk”
+* disable WhatsApp button with visible reason
+
+Why:
+
+* reduces confusion during first-time use
+* improves conversion from input → action
+* aligns with live-preview-first model
+
+Likely files:
+
+* `js/app.js`
+* `css/style.css`
+* `README.md`
+* `docs/FLOW.md`
+
+Rules:
+
+* do not add blocking UI (no modal)
+* keep messaging simple and inline
+* do not change validation logic ownership
+* empty and invalid states must be clearly distinguished:
+  - empty → onboarding guidance (what to fill)
+  - invalid → correction guidance (what to fix)
+* valid preview must remain the exact output from message-formatter.js (no modification)
+
+Definition of done:
+
+* empty state clearly explains what is missing
+* invalid state clearly indicates issue
+* user can understand next step without guessing
+* no change to message pipeline
+* empty and invalid states are visually and textually distinguishable
+* valid state remains unchanged from current behavior
+
+Related NOTE from NOTES.md:
+
+→ **NOTE-007 (Action feedback UX consistency)**
+Update NOTE-007:
+
+```markdown
+### Status
+Partially addressed
+
+### Superseded By
+TASK-009, TASK-012
+```
+
+---
+
+## TASK-014 — Improve mobile flow after adding/removing item
+
+Status: `done`
+
+Goal:
+Make item interaction smoother on mobile:
+
+* correct scroll behavior
+* intuitive focus
+* stable interaction after add/remove
+
+Example:
+
+* after “Tambah Item”, auto-scroll to new item
+* focus on product dropdown
+* after remove, no jumpy layout
+
+Why:
+
+* mobile is primary usage context
+* current behavior is functional but not optimized
+* improves speed of real order entry
+
+Likely files:
+
+* `js/form.js`
+* `js/app.js`
+* `css/style.css`
+
+Rules:
+
+* do not change data structure
+* do not introduce heavy animation
+* keep logic simple and predictable
+
+Definition of done:
+
+* new item is visible immediately
+* focus behavior is correct
+* remove action does not disrupt layout
+* interaction feels stable on repeated use
+
+Related NOTE from NOTES.md:
+
+→ **NOTE-006 (Mobile interaction friction)**
+Update NOTE-006:
+
+```markdown
+### Status
+Partially addressed
+
+### Superseded By
+TASK-008, TASK-013
+```
+
+---
+
+## TASK-015 — Improve item summary clarity in collapsed state
+
+Status: `done`
+
+Goal:
+Ensure item summary always clearly represents:
+
+* product
+* quantity
+* important note (if any)
+
+Example:
+
+Instead of:
+
+```
+Sambal Original x1
+```
+
+Better:
+
+```
+Sambal Original x2 — kurang pedas
+```
+
+Why:
+
+* prevents misreading before sending
+* important when multiple items exist
+* reduces cognitive load
+
+Likely files:
+
+* `js/form.js`
+* `css/style.css`
+
+Rules:
+
+* do not duplicate message formatting logic
+* summary is UI-only, not message logic
+* keep text short and readable
+
+Definition of done:
+
+* summary updates immediately after changes
+* summary reflects key info clearly
+* works for multiple items
+* no layout break
+
+Related NOTE from NOTES.md:
+
+→ **NOTE-002 (Item ambiguity)**
+Update NOTE-002:
+
+```markdown
+### Status
+Partially addressed
+
+### Superseded By
+TASK-015
+```
+
+---
+
+## TASK-016 — Add optional vendor instruction hint (non-intrusive)
+
+Status: `done`
+
+Goal:
+Provide a small, optional hint to guide user behavior after sending order.
+
+Example:
+
+Below preview or action area:
+
+```
+Sila sahkan pesanan dengan vendor selepas hantar
+```
+
+Why:
+
+* reduces confusion in WhatsApp conversation
+* helps mitigate duplicate/unconfirmed order issue
+* no system-level complexity required
+
+Likely files:
+
+* `index.html`
+* `js/config.js` (optional text config)
+* `css/style.css`
+* `README.md`
+
+Rules:
+
+* must be non-blocking
+* must be optional or subtle
+* do not simulate order confirmation system
+
+Definition of done:
+
+* hint is visible but not intrusive
+* improves clarity of next step
+* no behavior change required
+
+Related NOTE from NOTES.md:
+
+→ **NOTE-004 (Duplicate/unconfirmed orders)**
+Update NOTE-004:
+
+```markdown
+### Status
+Partially addressed
+
+### Superseded By
+TASK-015
+```
+
+---
+
 # Current Execution Order
 
 Recommended near-term execution:
 
-1. TASK-010 � Prepare vendor-specific static routing
-2. TASK-012 � Prepare extraction boundary for reusable WhatsApp transport
+1. No pending task in current sequence.
 
 ---
 
@@ -515,6 +754,7 @@ Use:
 * `NOTES.md` for raw thinking only
 
 ---
+
 
 
 

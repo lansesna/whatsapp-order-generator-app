@@ -309,6 +309,7 @@ textarea {
   border-radius: var(--radius-lg);
   background: var(--white);
   overflow: hidden;
+  scroll-margin-top: 0.8rem;
 }
 
 .order-item-toggle {
@@ -439,13 +440,23 @@ textarea {
 
 #messageBox[data-state="empty"] {
   color: var(--muted);
-  background: var(--surface);
+  background: #f7f4ec;
+  border-style: dashed;
+  border-color: var(--border-dark);
 }
 
 #messageBox[data-state="invalid"] {
   color: var(--red);
-  background: #fff5f2;
-  border-color: #e0b4ac;
+  background: #fff3ef;
+  border-color: #d88f83;
+  box-shadow: inset 0 0 0 1px rgba(155, 58, 46, 0.08);
+}
+
+#messageBox[data-state="valid"] {
+  color: var(--ink);
+  background: var(--white);
+  border-color: var(--green-light);
+  box-shadow: inset 0 0 0 1px rgba(61, 110, 85, 0.08);
 }
 
 .actions {
@@ -461,6 +472,14 @@ textarea {
   font-size: 0.75rem;
   font-weight: 700;
   color: var(--muted);
+}
+
+.order-flow-hint {
+  grid-column: 1 / -1;
+  font-size: 0.72rem;
+  color: var(--muted);
+  line-height: 1.45;
+  opacity: 0.9;
 }
 
 .action-feedback.is-success {

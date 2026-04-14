@@ -211,18 +211,7 @@ When making changes:
 
 ---
 
-## 15. Default Decision Rule
-
-If uncertain, choose:
-
-- simpler solution
-- fewer files
-- explicit logic
-- no external dependency
-
----
-
-## 16. Agent Structure Constraint
+## 15. Agent Structure Constraint
 
 The following structure must be respected:
 
@@ -235,6 +224,34 @@ Rules:
 - do NOT duplicate tasks across TASKS.md and docs/tasks/
 - do NOT treat docs/tasks/ as backlog
 - do NOT modify agent definitions for single execution
+
+---
+
+## 16. No Silent Behavior Change
+
+Any change that affects:
+
+- user flow
+- interaction model
+- message structure
+- vendor config behavior
+
+must be reflected in:
+- TASKS.md
+- FLOW.md
+- README.md (if user-facing)
+
+---
+
+
+## 17. Default Decision Rule
+
+If uncertain, choose:
+
+- simpler solution
+- fewer files
+- explicit logic
+- no external dependency
 
 ---
 

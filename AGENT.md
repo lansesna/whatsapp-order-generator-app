@@ -122,6 +122,7 @@ Rules:
 - do not manually build URL in other files
 - do not duplicate encoding logic
 
+
 ---
 
 ## Modification Guidelines
@@ -291,6 +292,18 @@ Rules:
 - TASKS.md defines executable work
 - NOTES.md contains raw ideas and unapproved planning
 - do not implement items from NOTES.md unless they are also reflected in TASKS.md or explicitly requested
+
+---
+
+## Global Definition of Done
+
+A task is only considered done if:
+
+- implementation matches task goal
+- no broken UI or flow
+- no console errors
+- docs updated if behavior changed
+- no violation of CONSTRAINTS.md
 
 ---
 

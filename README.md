@@ -18,7 +18,7 @@ It consumes reusable nodes (Very Small tools and optionally Small modules) and c
 
 ## Current Status
 
-Version: **v0.1.4**
+Version: **v0.1.5**
 
 - static frontend application
 - single vendor config-driven setup
@@ -139,8 +139,11 @@ Preview / Copy / Open WhatsApp
 - collapsible item sections
 - responsive design
 - instant preview updates
-- clearer item-card summaries (product, qty, note indicator)
+- mobile add/remove flow keeps new item visible with stable focus and scroll context
+- clearer item-card summaries (product, qty, concise note snippet when useful)
 - safer multi-item remove behavior (single-item floor maintained)
+- clearer preview-state guidance (empty vs invalid)
+- subtle post-send hint reminds buyer to confirm details with vendor in WhatsApp
 
 ### Live Preview
 
@@ -200,7 +203,7 @@ Current deployment model:
 - no backend required
 
 Deployment note:
-- static assets use version query strings (`?v=0.1.4`) to reduce stale browser-cache issues after release updates
+- static assets use version query strings (`?v=0.1.5`) to reduce stale browser-cache issues after release updates
 
 ---
 
@@ -246,6 +249,7 @@ const APP_CONFIG = {
   products: ["Sambal Pedas", "Sambal Original", "Sambal Extra Pedas"],
   settings: {
     previewPlaceholder: "Preview mesej akan muncul di sini apabila maklumat wajib diisi.",
+    orderFlowHint: "Selepas hantar, terus sahkan pesanan anda dengan vendor di WhatsApp.",
     previewStateText: {
       empty: "Isi maklumat pelanggan dan pilih item untuk lihat preview mesej.",
       invalid: "Preview belum tersedia. Sila betulkan maklumat pesanan."

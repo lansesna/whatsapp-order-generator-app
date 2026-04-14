@@ -13,7 +13,7 @@ It guides:
 
 ## Current Version
 
-v0.1.4 - UX and Deployment Readiness Baseline
+v0.1.5 - UX Clarity and Interaction Refinement Baseline
 
 Status:
 - static frontend
@@ -32,6 +32,18 @@ Current focus:
 Not in current scope:
 
 - routing
+- backend
+- persistence
+
+---
+
+## Next Phase (v0.2 direction)
+
+- vendor-specific routing (static)
+- multi-config support
+- stronger config separation
+
+Not part of v0.1.x:
 - backend
 - persistence
 

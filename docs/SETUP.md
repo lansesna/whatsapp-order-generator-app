@@ -171,8 +171,8 @@ This application is designed for **static hosting**.
 4. Deploy
 
 5. Keep asset version query strings in `index.html` updated for each release, for example:
-   - `css/style.css?v=0.1.4`
-   - `js/app.js?v=0.1.4`
+   - `css/style.css?v=0.1.5`
+   - `js/app.js?v=0.1.5`
    - this helps reduce stale browser cache after deploy
 
 ---

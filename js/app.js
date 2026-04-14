@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const messageBox = document.getElementById("messageBox");
   const validationFeedback = document.getElementById("validationFeedback");
   const actionFeedback = document.getElementById("actionFeedback");
+  const orderFlowHint = document.getElementById("orderFlowHint");
   const shopNameLabel = document.getElementById("shopNameLabel");
   const vendorDescriptionLabel = document.getElementById("vendorDescriptionLabel");
   const vendorContactLabel = document.getElementById("vendorContactLabel");
@@ -23,6 +24,16 @@ document.addEventListener("DOMContentLoaded", function () {
   const previewStateText = appSettings.previewStateText || {};
   const localStorageKeys = appSettings.localStorageKeys || {};
   let actionFeedbackTimer = null;
+
+  function getEmptyPreviewGuidance() {
+    return previewStateText.empty ||
+      "Mulakan pesanan: isi Nama Pelanggan dan pilih sekurang-kurangnya satu produk.";
+  }
+
+  function getInvalidPreviewGuidance() {
+    return previewStateText.invalid ||
+      "Preview ditangguhkan. Betulkan maklumat pada mesej ralat di atas.";
+  }
 
   function setButtonsDisabled(isDisabled) {
     openWhatsAppBtn.disabled = isDisabled;
@@ -81,8 +92,18 @@ document.addEventListener("DOMContentLoaded", function () {
   function resetPreview() {
     currentMessage = "";
     currentWhatsAppURL = "";
-    setPreviewState("empty", previewStateText.empty || appSettings.previewPlaceholder || "");
+    setPreviewState("empty", getEmptyPreviewGuidance());
     setButtonsDisabled(true);
+  }
+
+  function renderOrderFlowHint() {
+    if (!orderFlowHint) {
+      return;
+    }
+
+    const hintText = String(appSettings.orderFlowHint || "").trim();
+    orderFlowHint.textContent = hintText ||
+      "Selepas hantar, terus sahkan pesanan anda dengan vendor di WhatsApp.";
   }
 
   function renderValidationFeedback(validationMessage) {
@@ -171,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function () {
       renderValidationFeedback(validation.message);
       currentMessage = "";
       currentWhatsAppURL = "";
-      setPreviewState("invalid", previewStateText.invalid || appSettings.previewPlaceholder || "");
+      setPreviewState("invalid", getInvalidPreviewGuidance());
       setButtonsDisabled(true);
       return;
     }
@@ -243,7 +264,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (removeAction && document.querySelectorAll(".order-item").length > 1) {
         event.stopPropagation();
-        removeOrderItem(orderItem);
+        const nextItem = removeOrderItem(orderItem);
+
+        if (nextItem) {
+          revealOrderItem(nextItem, "nearest");
+        }
+
         updateOrderPreview();
         return;
       }
@@ -274,15 +300,11 @@ document.addEventListener("DOMContentLoaded", function () {
       note: ""
     });
 
-    const body = newItem.querySelector(".order-item-body");
-    const firstField = body.querySelector(".item-product");
-
     newItem.classList.remove("is-collapsed");
     newItem.querySelector(".order-item-toggle").setAttribute("aria-expanded", "true");
 
-    if (firstField) {
-      firstField.focus();
-    }
+    revealOrderItem(newItem, "start");
+    focusOrderItemPrimaryField(newItem);
 
     updateOrderPreview();
   });
@@ -316,6 +338,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   restoreCustomerDraft();
   renderShopIdentity();
+  renderOrderFlowHint();
   bindStaticFieldEvents();
   bindItemContainerEvents();
   bindActionFeedbackEvents();

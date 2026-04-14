@@ -14,6 +14,47 @@ Uses `0.x.x` until a stable product baseline is reached.
 
 ---
 
+## [0.1.5] - 2026-04-14
+
+### Added
+
+- TASK-016: optional, non-intrusive vendor instruction hint near preview/action flow.
+- configurable hint text via `APP_CONFIG.settings.orderFlowHint`.
+- release task definition for `v0.1.5`:
+  - `docs/tasks/release-v0.1.5.md`
+
+### Changed
+
+- completed release scope tasks:
+  - TASK-013: clearer empty vs invalid preview-state guidance
+  - TASK-014: smoother mobile add/remove item flow (focus, visibility, layout stability)
+  - TASK-015: clearer collapsed item summaries (product, qty, concise note context)
+  - TASK-016: optional vendor guidance hint added (non-blocking)
+- kept live-preview-first interaction model intact (no manual Generate Order step).
+- updated static asset cache-busting query strings in `index.html` to `?v=0.1.5`.
+
+### Documentation Updates (Non-Functional)
+
+- wording and alignment updates in:
+  - `README.md`
+  - `docs/FLOW.md`
+  - `docs/TASKS.md`
+  - `docs/PRODUCT.md`
+  - `docs/SETUP.md`
+- governance/planning updates reflected in current release state:
+  - `docs/RELEASE.md`
+  - `AGENT.md`
+  - `CONSTRAINTS.md`
+  - `ROADMAP.md`
+  - `NOTES.md`
+
+### Notes
+
+- application remains static-first, frontend-only, and single-vendor per deployment.
+- TASK-010 and TASK-012 remain deferred and are not included in this release.
+
+---
+
 ## [0.1.4] - 2026-04-14
 
 ### Added
@@ -213,13 +254,13 @@ Initial prototype:
 
 # Current Status
 
-Version: **0.1.4**
+Version: **0.1.5**
 
 Current focus:
 
-- production-safe static deployment alignment
-- release-governor readiness for `v0.1.4`
-- preserving lightweight static architecture while improving UX polish
+- usability-focused UX refinement and interaction clarity
+- release-governor readiness for `v0.1.5`
+- preserving lightweight static architecture while improving documentation and governance alignment
 
 ---
 
