@@ -1,5 +1,7 @@
 # NOTES
 
+Application Codename: NT-C
+
 This document tracks:
 - ideas
 - risks
@@ -834,7 +836,7 @@ Deferred
 ### Related
 - TASK-013 (empty/invalid clarity)
 - TASK-014 (mobile interaction flow)
-- TASK-015 (item summary clarity
+- TASK-015 (item summary clarity)
 - TASK-017 (last valid preview)
 
 ### Status
@@ -893,55 +895,365 @@ TASK-019
 
 ---
 
-## Structure template:
-
-```
-## [NOTE-ID] Title
+## NOTE-024 — Need for distribution/entry layer (landing page)
 
 ### Context
-Where this idea/issue came from.
+Identified while considering how the application will be shared with multiple vendors and users.
 
 ### Observation
-What you noticed.
+Current system is:
+- a single-entry tool (direct link to order generator)
+
+Future scaling may require:
+- a central entry point
+- vendor selection
+- product explanation
+- structured feedback channel
 
 ### Risk / Problem
-Why it matters.
+- direct app sharing may not scale
+- lack of branding or onboarding
+- feedback and contact handling becomes fragmented
 
 ### Options Considered
-- Option A
-- Option B
-- Option C
+- keep direct app access only
+- introduce a simple landing page
+- introduce full product website
 
 ### Decision
-- accepted / deferred / rejected
+Deferred
 
 ### Reason
-Why you made that decision.
+- current phase is focused on validating core tool usability
+- no real usage signal yet requiring distribution layer
 
 ### Future Trigger
-When this should be revisited.
+- multiple vendors require separate entry points
+- need for branding and onboarding
+- public sharing beyond controlled testing
 
 ### Related
-- TASK-xxx
-- file/module
-- release version
+- NOTE-018 (multi-setup vendor configuration)
+- v0.2+ direction
 
 ### Status
-
-```
+Deferred
 
 ---
 
-## Handling outdated notes
+## NOTE-025 — Separation between product layer and tool layer
 
-Do NOT delete.
+### Context
+Derived from discussion on landing page vs application responsibilities.
 
-Instead:
+### Observation
+Two distinct layers are emerging:
 
-```
+1. Product/Distribution Layer:
+   - landing page
+   - vendor selection
+   - branding
+   - public contact
+
+2. Tool Layer:
+   - order generator
+   - validation
+   - preview
+   - WhatsApp sending
+
+### Risk / Problem
+- mixing both layers may:
+  - increase complexity
+  - reduce clarity
+  - slow down iteration
+
+### Options Considered
+- keep everything in one app
+- separate layers clearly
+
+### Decision
+Deferred (conceptual alignment only)
+
+### Reason
+- current application is still single-purpose tool
+- separation becomes relevant only when scaling
+
+### Future Trigger
+- introduction of multi-vendor routing
+- need for structured entry point
+- expansion beyond single-use tool
+
+### Related
+- NOTE-024
+- NOTE-018
+
 ### Status
-Outdated
+Deferred
 
-### Superseded By
-TASK-008 or v0.1.4 changes
+---
+
+## NOTE-026 — Vendor requests optional product pricing in order flow
+
+### Context
+
+Observed from vendor feedback during early real-world usage discussion.
+
+### Observation
+
+Some vendors want each product to carry a unit price so the order flow can show:
+
+* unit price
+* per-item subtotal
+* grand total
+
+before the message is sent.
+
+### Why It Matters
+
+This can reduce price clarification after the message is received and improve buyer confidence before sending the order.
+
+### Boundary
+
+This should remain lightweight.
+
+Included direction:
+
+* optional unit price per product
+* subtotal per line
+* grand total
+
+Explicitly excluded for initial scope:
+
+* discounts
+* tax
+* shipping fee
+* promo code
+* dynamic pricing
+* inventory logic
+
+### Product Impact
+
+This changes the product from:
+
+```text
+structured WhatsApp order formatter
 ```
+
+toward:
+
+```text
+structured WhatsApp order formatter with lightweight pricing summary
+```
+
+### Decision
+
+Deferred to future scoped work.
+
+### Recommended Release Placement
+
+v0.2.0+
+
+### Status
+
+Deferred
+
+---
+
+## NOTE-027 — Pricing support must remain optional and backward-compatible
+
+### Context
+
+Derived from discussion on vendor pricing support.
+
+### Observation
+
+Not all vendors need or want price-based ordering. Some only need structured item capture without visible totals.
+
+### Why It Matters
+
+If pricing becomes mandatory:
+
+* current simple vendor use case becomes heavier
+* existing deployments/configs may become harder to maintain
+* product simplicity may be reduced unnecessarily
+
+### Constraint
+
+Pricing support should behave as:
+
+* if price exists → show unit price, subtotal, and total
+* if price does not exist → preserve current behavior
+
+### Product Impact
+
+This keeps the current single-purpose order flow valid while allowing gradual capability expansion.
+
+### Decision
+
+Deferred to future scoped work.
+
+### Recommended Release Placement
+
+v0.2.0+
+
+### Status
+
+Deferred
+
+---
+
+## NOTE-028 — Pricing summary should appear in both preview and sent message
+
+### Context
+
+Derived from discussion on how optional pricing should behave.
+
+### Observation
+
+If pricing is supported, showing totals only in UI preview is insufficient. Vendor and buyer benefit most when the same pricing summary is preserved in the outgoing WhatsApp message.
+
+### Why It Matters
+
+Mismatch between preview and final message would create confusion and reduce trust.
+
+### Constraint
+
+If pricing support is introduced, the pricing structure should be reflected consistently in:
+
+* preview
+* final WhatsApp message
+
+### Product Impact
+
+This increases message completeness without requiring extra vendor clarification.
+
+### Decision
+
+Deferred to future scoped work.
+
+### Recommended Release Placement
+
+v0.2.0+
+
+### Status
+
+Deferred
+
+---
+
+## NOTE-029 — Pricing support implies product-config evolution
+
+### Context
+
+Derived from discussion on adding unit price to products.
+
+### Observation
+
+Optional pricing is not only a UI change. It also changes vendor configuration shape because product entries may need to evolve from label-only structure into product metadata with optional price.
+
+### Why It Matters
+
+This affects:
+
+* vendor configuration format
+* preview rendering
+* message formatting
+* future compatibility
+
+### Constraint
+
+Any pricing expansion should be planned as config evolution, not handled as ad hoc UI-only logic.
+
+### Product Impact
+
+This is one reason pricing support fits better as capability expansion than as a patch correction.
+
+### Decision
+
+Deferred to future scoped work.
+
+### Recommended Release Placement
+
+v0.2.0+
+
+### Status
+
+Deferred
+
+---
+
+## NOTE-031 — Timestamp reference for WhatsApp order message
+
+### Context
+Observed during early usage consideration where vendors may receive multiple orders from the same customer within a short time frame.
+
+### Observation
+In a static system without backend or order storage:
+
+- WhatsApp chat becomes the primary source of truth
+- vendors have difficulty identifying which order is being referenced later
+- especially when customers refer to past orders (e.g. “2 days ago”)
+
+### Core Idea
+Include a timestamp in the order message as a lightweight reference:
+
+```text
+time → message → chat history
+````
+
+### Proposed Behavior (Conceptual)
+
+* timestamp is generated at action-time
+* timestamp is displayed in message header
+* format remains human-readable and simple
+
+Example:
+
+```text
+Masa Order: 21/04/2026 22:14
+```
+
+### Why It Matters
+
+For vendors:
+
+* easier lookup in chat history
+* easier differentiation between multiple orders from the same customer
+* improves clarity during correction or dispute handling
+
+For system:
+
+* improves traceability without backend complexity
+* aligns with static-first design
+
+### Constraints
+
+* depends on buyer device time
+* no timezone normalization
+* no persistence
+* must remain readable and lightweight
+
+### Risks
+
+* buyer device time may be inaccurate
+* timestamp may be interpreted as authoritative system record
+* message may become cluttered if badly placed
+* inconsistent behavior if only some actions include it
+
+### Open Questions
+
+* should timestamp apply only to “Buka WhatsApp” or also to copy actions
+* exact placement relative to message title
+* fixed format vs future configurability
+
+### Decision
+
+Accepted as valid direction for near-term improvement.
+
+### Recommended Release Placement
+
+v0.1.7
+
+### Status
+
+Active

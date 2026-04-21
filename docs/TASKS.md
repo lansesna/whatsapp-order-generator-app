@@ -1,5 +1,7 @@
 # TASKS.md
 
+Application Codename: NT-C
+
 ## Purpose
 
 This document defines executable tasks for the WhatsApp Order Generator Application.
@@ -34,10 +36,15 @@ Do NOT implement directly from `NOTES.md` unless explicitly instructed.
 ## Current Priority
 
 Current focus:
-- governance alignment
-- production-safe static deployment
-- UX refinement
-- vendor-configurable static path preparation
+
+- no active execution task
+- preparing next release scope (v0.1.x or v0.2 direction)
+- validating product through real usage and feedback
+
+Notes:
+
+- agent must not introduce new work unless defined in TASKS.md
+- new work must originate from NOTES.md → then be approved into TASKS.md
 
 ---
 
@@ -748,11 +755,112 @@ Definition of done:
 
 ---
 
+## TASK-020 — Improve label clarity for user understanding
+
+Status: `done`
+
+Goal:
+Improve wording of labels so users clearly understand what to input without explanation.
+
+Example:
+- "Order Form" → "Isi Pesanan"
+
+- "(optional)" → "(Tidak wajib)"
+
+- "Item Pesanan" → "Senarai Pesanan"
+
+- "Item 1" → "Pilihan 1"
+- "Item 2" → "Pilihan 2"
+- "Item 3" → "Pilihan 1"
+- ...
+
+- "Preview mesej" → "Pratonton Mesej”
+
+Why:
+Observed confusion or hesitation during input.
+Clear labels reduce friction and improve completion rate.
+
+Likely files:
+- `index.html`
+- `js/app.js (if labels generated dynamically)`
+
+Rules:
+- do not change validation logic
+- do not introduce new fields
+- keep wording simple and consistent
+- no modal or blocking UI
+
+Definition of done:
+- all user-facing labels are clear and consistent
+- first-time user can understand input fields without guidance
+- no regression in layout or flow
+
+---
+
+## TASK-021 — Add timestamp reference to WhatsApp order message
+
+Status: `todo`
+
+Goal:
+Add a timestamp to the generated WhatsApp message so vendors can identify and trace orders in chat history.
+
+Example:
+
+*ORDER BARU*
+
+Masa Order: 21/04/2026 22:14
+
+Nama: Ali
+Telefon: +60123456789
+
+*Item Pesanan*
+...
+
+Why:
+
+- vendors may receive multiple orders from the same customer
+- WhatsApp chat is the only source of truth (no backend)
+- timestamp provides lightweight reference without adding system complexity
+
+Likely files:
+
+- js/message-formatter.js
+- js/whatsapp-url.js
+- js/app.js (if action-time hook required)
+
+Rules:
+
+- timestamp MUST be generated at action-time (when user clicks “Buka WhatsApp”)
+- timestamp MUST be included in WhatsApp message only
+- DO NOT modify validation logic
+- DO NOT introduce new config fields
+- DO NOT persist timestamp anywhere
+- DO NOT add timezone handling
+- keep format fixed and simple
+- placement MUST be in message header (after title, before customer info)
+- MUST NOT affect preview unless explicitly required later
+
+Format:
+
+- label: "Masa Order"
+- format: DD/MM/YYYY HH:mm (24-hour)
+- example: 21/04/2026 22:14
+
+Definition of done:
+
+- WhatsApp message includes timestamp at correct position
+- timestamp matches user device time at click moment
+- message format remains clean and readable
+- no regression in message generation
+- no change to preview behavior
+
+---
+
 # Current Execution Order
 
 Recommended near-term execution:
 
-1. No pending task in current sequence.
+1. TASK-021 — Add timestamp reference
 
 ---
 

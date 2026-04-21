@@ -14,39 +14,50 @@ Uses `0.x.x` until a stable product baseline is reached.
 
 ---
 
-## [0.1.6] - 2026-04-14
-
-### Added
-
-- TASK-018: simple feedback/report mechanism via external footer contact action (developer channel).
+## [v0.1.7] - Unreleased
 
 ### Changed
+- repository snapshot commit prepared for backup/sync only (v0.1.7 remains unreleased)
+- Internal codename introduced for development tracking: NT-C
+- introduced user-facing product naming direction:
+  - temporary: Order WhatsApp Generator
+  - product name: Nak Tak
+- repository is now being developed together with an agent execution/control layer
+- current documentation updates include agent-layer governance/runtime docs for upcoming commits
+- these agent-layer documentation updates are non-functional (no direct app behavior change)
+- deployment-governance direction documented:
+  - current version sticks to simple GitHub Pages-friendly publish layout (root `index.html`)
+  - future phase may adopt `src -> docs/dist` build pipeline when needed
+- deployment structure aligned with current governance choice:
+  - moved `index.html` to repository root for GitHub Pages compatibility
+  - updated asset/script references in root `index.html` to `src/css/*` and `src/js/*`
+- TASK-020: improved label clarity for user understanding in src/ UI:
+  - Order Form -> Isi Pesanan
+  - (optional) -> (Tidak wajib) for phone and note labels
+  - Item Pesanan -> Senarai Pesanan
+  - dynamic item title Item n -> Pilihan n
+  - Preview Mesej -> Pratonton Mesej
+  - preview placeholder wording aligned to Pratonton
+- no validation logic or field structure changes (wording-only update)
 
-- completed release scope tasks:
-  - TASK-017: preserve last valid preview during temporary invalid transitions.
-  - TASK-018: provide direct external feedback/report entry point.
-  - TASK-019: lightweight UI modernization (typography, spacing rhythm, clearer collapse affordance).
-- kept actions disabled when current form state is invalid, including stale-preview-invalid transitions.
-- updated static asset cache-busting query strings in `index.html` to `?v=0.1.6`.
+---
 
-### UPDATE (Documentation-Only)
+## [v0.1.6] — 2026-04-20
 
-- added release task definition for `v0.1.6`:
-  - `docs/tasks/release-v0.1.6.md`
-- synchronized product/version behavior wording to `v0.1.6` in:
-  - `README.md`
-  - `ROADMAP.md`
-  - `docs/FLOW.md`
-- updated NOTES lifecycle alignment:
-  - NOTE-021 -> Completed (TASK-018)
-  - NOTE-022 -> Partially addressed (TASK-017)
-  - NOTE-023 -> Completed (TASK-019)
-- included TASKS normalization and status consistency updates for TASK-017, TASK-018, TASK-019.
+### Added
+- feedback/report mechanism (external link to developer support channel)
 
-### Notes
+### Changed
+- preview now preserves last valid state during temporary invalid input
+- improved empty and invalid state clarity
+- improved mobile interaction for add/remove item flow
+- improved item summary clarity in collapsed state
+- added optional vendor instruction hint for post-order confirmation
+- improved UI readability, spacing, and visual hierarchy
 
-- application remains static-first, frontend-only, and single-vendor per deployment.
-- TASK-010 and TASK-012 remain deferred and are not included in this release.
+### Updated (Documentation)
+- TASKS.md normalization and consistency improvements
+- NOTES.md expanded with new observations and classified for future phases
 
 ---
 
@@ -286,40 +297,5 @@ Initial prototype:
 
 - This version represented the earliest working prototype baseline
 
----
 
-# Current Status
 
-Version: **0.1.6**
-
-Current focus:
-
-- usability-focused UX refinement, interaction stability, and lightweight UI modernization
-- release-governor readiness for `v0.1.6`
-- preserving lightweight static architecture while improving documentation and governance alignment
-
----
-
-# Future Milestones (Indicative)
-
-- v0.2 — UX refinement and inline validation feedback
-- v0.3 — vendor-configurable local data
-- v0.4 — unique shop/page routing
-- later — persistence layer evaluation
-
----
-
-# Scope Boundary Check
-
-This project remains:
-
-✔ a lightweight vendor-facing / buyer-facing WhatsApp order Application  
-✘ not an order management system  
-✘ not an e-commerce platform  
-✘ not a marketplace  
-
----
-
-End of CHANGELOG.
-
----

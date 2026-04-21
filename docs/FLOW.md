@@ -1,4 +1,4 @@
-# FLOW — WhatsApp Order Generator
+# FLOW — Nak Makan
 
 ---
 
@@ -98,7 +98,7 @@ Key rule:
 
 ---
 
-## WhatsApp Order Generator
+## Nak Makan
 
 Nama Pelanggan
 [________________________]

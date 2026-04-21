@@ -1,8 +1,16 @@
-# WhatsApp Order Generator
+# Nak Makan
+
+## Repository Identity
+
+Repository name: whatsapp-order-generator
+Repository type: application
+Scope: single-repo execution  
+
+---
 
 ## Overview
 
-WhatsApp Order Generator is a lightweight web application that allows vendors to create a simple shareable order page so buyers can submit structured orders via WhatsApp.
+Nak Makan is a lightweight web application that allows vendors to create a simple shareable order page so buyers can submit structured orders via WhatsApp.
 
 This project is intentionally designed as a **minimal order-intent system**, not a full order management platform.
 
@@ -18,13 +26,14 @@ It consumes reusable nodes (Very Small tools and optionally Small modules) and c
 
 ## Current Status
 
-Version: **v0.1.6**
+Version: **v0.1.7 (Unreleased)**
 
 - static frontend application
 - single vendor config-driven setup
 - live-preview-first message generation
 - no Generate Order button
 - non-blocking inline action feedback for open/copy actions
+- label clarity update (TASK-020): Malay-first wording for key form/preview labels
 - ready for static hosting deployment
 
 ---
@@ -112,7 +121,6 @@ WhatsApp Message Generator (Very Small Tool)
 ↓
 Preview / Copy / Open WhatsApp
 
-````
 
 ---
 
@@ -207,6 +215,8 @@ Current deployment model:
 
 Deployment note:
 - static assets use version query strings (`?v=0.1.6`) to reduce stale browser-cache issues after release updates
+- governance choice for current version: keep GitHub Pages-friendly publish layout simple (root `index.html`)
+- future approach (later phase): evaluate `src -> docs/dist` build pipeline when project complexity justifies it
 
 ---
 
@@ -223,19 +233,20 @@ No frameworks. No build step.
 ## Project Structure
 
 ```
-index.html
-css/style.css
-js/config.js
-js/form.js
-js/input-validator.js
-js/message-composer.js
-js/message-formatter.js
-js/whatsapp-url.js
-js/app.js
+src/
+  index.html
+  css/style.css
+  js/config.js
+  js/form.js
+  js/input-validator.js
+  js/message-composer.js
+  js/message-formatter.js
+  js/whatsapp-url.js
+  js/app.js
 docs/
-  agents/    → agent definitions (e.g., release-governor)
-  tasks/     → execution runs (e.g., release-v0.1.3)
-````
+  agents/    -> agent definitions (e.g., release-governor)
+  tasks/     -> execution runs (e.g., release-v0.1.3)
+```
 
 ---
 

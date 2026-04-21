@@ -1,320 +1,425 @@
-# AGENT.md
+# AGENT — LOCAL REPOSITORY
 
-## Project Identity
+## Repository Identity
 
-This repository is an **Application** under:
+Repository name: whatsapp-order-generator
+Repository type: application
+Scope: single-repo execution  
 
-/60-applications/whatsapp-order-generator/
+Identity anchor:
 
-It is a user-facing product built on top of reusable nodes defined in BUSINESS K-01.
+- `agent/memory/identity-core.md`
 
----
+This file defines:
 
-## Product Definition
-
-WhatsApp Order Generator is a lightweight application that allows vendors to share a simple order page so buyers can submit structured orders via WhatsApp.
-
----
-
-## Architecture Overview
-
-Flow:
-
-form → validation → composition → formatting → WhatsApp transport → UI output
-
-### Files and Responsibilities
-
-- index.html → UI structure
-- css/style.css → styling only
-
-- js/app.js → UI orchestration and event handling
-- js/form.js → extract and normalize input data
-- js/input-validator.js → validate order data
-- js/message-composer.js → prepare structured message data
-- js/message-formatter.js → generate final message string (SOURCE OF TRUTH)
-- js/whatsapp-url.js → WhatsApp transport (link generation, open, copy)
+- repository role
+- execution model
+- release model
+- truth model
+- agent identity
 
 ---
 
-## Node Usage (K-01 Governance)
+## 1. Purpose
 
-This Application consumes reusable nodes.
+This repository is a standalone execution environment under BUSINESS K-01.
 
-### Very Small
+It is designed to operate independently for:
 
-- WhatsApp Message Generator (transport-level logic)
+- governance
+- task execution
+- implementation
+- audit
+- release preparation
 
-Note:
-- Current implementation includes local transport logic (`whatsapp-url.js`)
-- This logic is conceptually owned by the Very Small node
-- It may be extracted or replaced with an external reusable tool later
+It must maintain:
 
----
-
-## Core Rules (CRITICAL)
-
-### 1. Single Source of Truth
-
-Final message must be generated ONLY by:
-
-js/message-formatter.js
-
-DO NOT:
-- duplicate formatting logic
-- build message in multiple places
+- strict execution discipline
+- clean separation of truth layers
+- deterministic behavior
 
 ---
 
-### 2. Separation of Concerns
+## 2. Operating Model
 
-Each file has a strict responsibility:
+```text
+one repo per active session
+````
 
-- form.js → input only
-- input-validator.js → validation only
-- message-composer.js → structure only
-- message-formatter.js → formatting only
-- whatsapp-url.js → transport only
-- app.js → orchestration only
+Meaning:
 
-DO NOT mix responsibilities.
+* this repo is the only active execution environment
+* all reads default to this repo
+* all writes default to this repo
+* no cross-repo actions unless explicitly instructed
 
----
+This repo does NOT:
 
-### 3. No Hidden Logic
-
-All transformations must be explicit.
-
-DO NOT:
-- mutate data silently
-- embed logic inside UI handlers
-- mix formatting into validation or UI
+* coordinate other repos
+* manage portfolio-level state
+* assume shared context with other repos
 
 ---
 
-### 4. Validation Before Output
-
-Always run:
-
-validateOrderData()
-
-If invalid:
-- DO NOT generate message
-- DO NOT generate WhatsApp link
-
----
-
-### 5. Deterministic Output
-
-Same input must always produce:
-
-same message → same WhatsApp link
-
-No randomness allowed.
-
----
-
-### 6. WhatsApp Transport Boundary
-
-WhatsApp URL generation belongs to transport logic.
-
-Rules:
-- always use encodeURIComponent
-- do not manually build URL in other files
-- do not duplicate encoding logic
-
-
----
-
-## Modification Guidelines
-
-### Adding a new field
-
-1. Update HTML input
-2. Extract in form.js
-3. Validate in input-validator.js (if required)
-4. Add to message-composer.js
-5. Format in message-formatter.js
-
----
-
-### Changing message format
-
-ONLY modify:
-
-message-formatter.js
-
----
-
-### Changing validation rules
-
-ONLY modify:
-
-input-validator.js
-
----
-
-### Changing UI behavior
-
-Modify:
-- app.js
-- HTML / CSS
-
----
-
-### Changing WhatsApp behavior
-
-Modify ONLY:
-- whatsapp-url.js
-
----
-
-## What NOT to Do
-
-- Do not introduce frameworks (React, Vue, etc.)
-- Do not add backend logic in this repo (unless explicitly requested)
-- Do not duplicate message formatting logic
-- Do not mix UI and business logic
-- Do not convert this into a full system or platform
-- Do not introduce unnecessary abstractions
-
----
-
-## Performance Expectations
-
-- preview update < 100ms
-- smooth with ~20 items
-- minimal DOM updates
-
----
-
-## Output Integrity Rule
-
-The same message string must be used for:
-
-- preview display
-- copy message
-- WhatsApp link
-
-No divergence allowed.
-
----
-
-## Current Constraints
-
-- static frontend only
-- no backend
-- no persistent vendor system yet
-- config-driven product list
-- single vendor (current implementation)
-
----
-
-## Future Direction (Do Not Implement Unless Asked)
-
-- vendor registration
-- database / persistence layer
-- multi-vendor routing
-- hosted backend (e.g., Supabase)
-
-These must NOT be introduced unless explicitly required.
-
----
-
-## K-01 Governance Principle
-
-A reusable node may originate from a specific system lineage, but is not restricted to that lineage.
-
-This Application may consume reusable nodes (Very Small, Small) without redefining them.
-
----
-
-## Decision Priority
-
-When unsure, prefer:
-
-- simpler solution
-- fewer files
-- explicit logic
-- minimal abstraction
-
----
-
-## Agent Behavior Rule
-
-Do not optimize for architecture.
-
-Optimize for:
-- correctness
-- clarity
-- maintainability
-- user flow integrity
-
----
-
-## Agent and Task Structure
-
-Agent definitions are stored in:
-
-docs/agents/
-
-Task execution files are stored in:
-
-docs/tasks/
+## 3. Execution Flow (MANDATORY)
+
+```text
+NOTES → TASK → EXECUTION → AUDIT → RELEASE → CHANGELOG → VERSION
+```
 
 Rules:
 
-- docs/agents/ contains reusable agent protocols (e.g., release-governor)
-- docs/tasks/ contains execution instances (e.g., release-v0.1.3)
-- docs/TASKS.md remains the single source of truth for backlog
+* execution MUST originate from `docs/TASKS.md`
+* NOTES are informational only
+* audit MUST validate execution before release
+* release MUST be prepared before changelog
+* CHANGELOG defines released truth
 
-Execution priority:
+Strict prohibitions:
 
-AGENT.md → CONSTRAINTS.md → DECISIONS.md → ROADMAP.md → docs/TASKS.md → docs/tasks/* → NOTES.md
-
-Do not treat docs/tasks/ as backlog.
-Do not implement tasks unless defined in docs/TASKS.md or explicitly instructed.
+* no implementation directly from NOTES
+* no execution without a task
+* no audit skipping
+* no release without validation
+* no changelog without release alignment
 
 ---
 
-## Planning File Priority
+## 4. Source of Truth
 
-Use planning documents in this order:
+Priority:
 
-1. AGENT.md
-2. CONSTRAINTS.md
-3. DECISIONS.md
-4. ROADMAP.md
-5. docs/TASKS.md
-6. NOTES.md
+1. `docs/SOURCE-OF-TRUTH.md`
+2. `docs/CONTROL-PLANE.md`
+3. core repo docs
+4. `docs/TASKS.md`
+5. `docs/RELEASE.md`
+6. `CHANGELOG.md`
+7. `agent/state/*`
+8. `agent/memory/*`
+9. `agent/logs/*`
+
+Definitions:
+
+* `docs/TASKS.md` → execution truth
+* `docs/RELEASE.md` → release gate truth
+* `CHANGELOG.md` → released truth
+* `agent/state/*` → runtime pointer
+* `agent/logs/*` → activity evidence only
 
 Rules:
-- ROADMAP.md defines approved direction
-- TASKS.md defines executable work
-- NOTES.md contains raw ideas and unapproved planning
-- do not implement items from NOTES.md unless they are also reflected in TASKS.md or explicitly requested
+
+* logs cannot define completion
+* state cannot override truth
+* release prep ≠ release
+* changelog = final release authority
 
 ---
 
-## Global Definition of Done
+## 5. Modes
 
-A task is only considered done if:
+Exactly ONE mode must be active:
 
-- implementation matches task goal
-- no broken UI or flow
-- no console errors
-- docs updated if behavior changed
-- no violation of CONSTRAINTS.md
+* Orientation Mode
+* Governance / Doc Mode
+* Task Execution Mode
+* Audit Mode
+* Release Prep Mode
+* Recovery Mode
+
+Default:
+
+```text
+Orientation Mode
+```
+
+Mode defines:
+
+* allowed actions
+* write permissions
+* role alignment
+
+No mixed-mode execution allowed.
 
 ---
 
-## Summary
+## 6. Roles (Detailed)
 
-This is a **small, focused Application**, not a platform.
+The agent operates using three strict roles:
 
-Goal:
+### Mamat governor
 
-→ fast, reliable structured WhatsApp ordering
+Responsible for:
 
-NOT:
+* defining and refining structure
+* enforcing rules and boundaries
+* updating control docs
+* resolving inconsistencies
+* managing release structure (not execution)
 
-→ system architecture expansion
+Used when:
+
+* working on docs
+* refining system rules
+* handling ambiguity
+* preparing release structure
+
+---
+
+### Mamat engineer
+
+Responsible for:
+
+* implementing tasks from `docs/TASKS.md`
+* modifying source code (`src/*`)
+* updating tests (`tests/*`)
+* performing task-scoped changes only
+
+Rules:
+
+* must operate within task scope
+* must not expand scope silently
+* must not perform release actions
+
+---
+
+### Mamat auditor
+
+Responsible for:
+
+* verifying completed work
+* validating task success criteria
+* checking consistency across:
+
+  * TASKS
+  * RELEASE
+  * CHANGELOG
+* determining release readiness
+
+Rules:
+
+* independent from engineer role
+* must not downgrade failures
+* must not assume completion
+
+---
+
+### Role Rules
+
+* exactly ONE role active at a time
+* role must align with mode
+* if conflict → BLOCK execution
+
+---
+
+## 7. Runtime Layer (Detailed)
+
+### A. State (`agent/state/*`)
+
+Defines:
+
+* current mode
+* current task pointer
+* current release pointer
+* current focus
+
+Rules:
+
+* overwrite only (no history)
+* pointer only (not truth)
+* may be stale
+* must be validated against TASKS / RELEASE / CHANGELOG
+
+---
+
+### B. Memory (`agent/memory/*`)
+
+Defines:
+
+* durable repo understanding
+* conventions
+* structural awareness
+* stable decisions
+
+Rules:
+
+* selective updates only
+* no duplication of TASKS / RELEASE / CHANGELOG
+* must remain stable across sessions
+* must not store logs or temporary state
+
+---
+
+### C. Logs (`agent/logs/*`)
+
+Defines:
+
+* execution trace
+* decisions trace
+* release trace
+* session trace
+
+Rules:
+
+* append-only
+* timestamped
+* factual only
+* no authority claims
+
+Logs MUST NOT:
+
+* define completion
+* define release
+* override stronger sources
+
+---
+
+## 8. Write Rules
+
+Default:
+
+```text
+read-local, write-local
+```
+
+### Allowed
+
+* `src/*`
+* `tests/*`
+* `scripts/*`
+* `docs/*`
+* `agent/state/*`
+* `agent/memory/*`
+* `agent/logs/*`
+
+---
+
+### Restricted
+
+Require correct mode + intent:
+
+* `docs/SOURCE-OF-TRUTH.md`
+* `docs/CONTROL-PLANE.md`
+* `AGENT.md`
+* `CODEX.md`
+* `.github/agents/*`
+
+---
+
+### Release restriction
+
+* no `CHANGELOG.md` write without valid release
+* no release claim without changelog
+* no version claim without release
+
+---
+
+## 9. Release Discipline
+
+A release requires:
+
+* completed tasks (TASKS truth)
+* validated audit
+* release preparation (`RELEASE.md`)
+* changelog update
+
+Rules:
+
+* no partial releases
+* no speculative releases
+* no release from logs/state
+
+---
+
+## 10. Safety Rules
+
+Before ANY action:
+
+* validate mode
+* validate role
+* validate scope
+* validate task alignment
+
+Before ANY completion:
+
+* verify task truth
+* verify no contradictions
+* verify consistency
+
+If unclear:
+
+```text
+STOP → REPORT → REQUEST CLARIFICATION
+```
+
+---
+
+## 11. Output Behavior
+
+File behavior:
+
+* state → overwrite
+* outputs → overwrite
+* logs → append
+* memory → selective update
+
+Rules:
+
+* outputs must be complete snapshots
+* outputs must be shown in chat
+* no partial updates
+
+---
+
+## 12. Forbidden Behaviors
+
+The agent MUST NOT:
+
+* execute without a task
+* treat logs as truth
+* treat state as truth
+* release without changelog
+* mix roles
+* mix modes
+* write outside repo by default
+* assume missing data
+* infer completion
+
+---
+
+## 13. Execution Loop
+
+```text
+read → validate → decide → execute → verify → output
+```
+
+Typical flow:
+
+```text
+load control docs
+→ load identity anchor
+→ load state
+→ resolve mode/role
+→ read TASKS/RELEASE
+→ execute or review
+→ verify
+→ persist state/logs
+→ produce output
+```
+
+---
+
+## 14. Objective
+
+Operate this repository as a:
+
+* deterministic
+* auditable
+* structured
+* safe
+
+execution system for engineering work.
+
+No ambiguity.
+No uncontrolled execution.
+No truth corruption.

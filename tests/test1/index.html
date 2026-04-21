@@ -4,19 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Nak Tak</title>
+  <title>WhatsApp Order Generator</title>
   <meta
     name="description"
     content="Generate structured WhatsApp order messages quickly."
   >
 
-  <link rel="stylesheet" href="src/css/style.css?v=0.1.6">
+  <link rel="stylesheet" href="css/style.css?v=0.1.6">
 </head>
 <body>
   <header class="app-header">
     <div class="app-header-brand">
-      <h1>Nak Tak</h1>
-      <p class="app-header-tagline">Pesanan WhatsApp Lebih Teratur.</p>
+      <h1>WhatsApp Order Generator</h1>
+      <p class="app-header-tagline">Generate structured WhatsApp order messages.</p>
     </div>
 
     <section class="vendor-profile" aria-label="Vendor profile">
@@ -30,7 +30,7 @@
 
   <main class="app-main">
     <section class="order-form">
-      <h2>Isi Pesanan</h2>
+      <h2>Order Form</h2>
 
       <form id="orderForm" novalidate>
         <div class="field-group">
@@ -45,7 +45,7 @@
         </div>
 
         <div class="field-group">
-          <label for="customerPhone">Nombor Telefon (Tidak wajib)</label>
+          <label for="customerPhone">Nombor Telefon (optional)</label>
           <input
             type="text"
             id="customerPhone"
@@ -59,7 +59,7 @@
 
         <div class="items-section">
           <div class="section-subhead">
-            <h3>Senarai Pesanan</h3>
+            <h3>Item Pesanan</h3>
           </div>
 
           <div id="orderItemsContainer" class="order-items-container"></div>
@@ -80,8 +80,8 @@
     </section>
 
     <section class="message-preview">
-      <h2>Pratonton Mesej</h2>
-      <pre id="messageBox">Pratonton mesej akan muncul di sini apabila maklumat wajib diisi.</pre>
+      <h2>Preview Mesej</h2>
+      <pre id="messageBox">Preview mesej akan muncul di sini apabila maklumat wajib diisi.</pre>
     </section>
 
     <section class="actions">
@@ -103,7 +103,7 @@
   </main>
 
   <footer class="app-footer">
-    <p>Nak Tak</p>
+    <p>WhatsApp Order Generator</p>
     <a
       class="feedback-link"
       href="mailto:azlanibr@gmail.com?subject=WhatsApp%20Order%20Generator%20Feedback"
@@ -121,7 +121,7 @@
       >
         <span class="order-item-toggle-left">
           <span class="order-item-chevron" aria-hidden="true">&#9662;</span>
-          <span class="order-item-title">Pilihan 1</span>
+          <span class="order-item-title">Item 1</span>
           <span class="order-item-summary">Belum dipilih</span>
         </span>
 
@@ -150,7 +150,7 @@
         </div>
 
         <div class="field-group">
-          <label>Catatan (Tidak wajib)</label>
+          <label>Catatan (optional)</label>
           <textarea
             class="item-note"
             placeholder="Contoh: kurang pedas, nak gift wrap, dll"
@@ -160,12 +160,12 @@
     </article>
   </template>
 
-  <script src="src/js/config.js?v=0.1.6"></script>
-  <script src="src/js/form.js?v=0.1.6"></script>
-  <script src="src/js/input-validator.js?v=0.1.6"></script>
-  <script src="src/js/message-composer.js?v=0.1.6"></script>
-  <script src="src/js/message-formatter.js?v=0.1.6"></script>
-  <script src="src/js/whatsapp-url.js?v=0.1.6"></script>
-  <script src="src/js/app.js?v=0.1.6"></script>
+  <script src="js/config.js?v=0.1.6"></script>
+  <script src="js/form.js?v=0.1.6"></script>
+  <script src="js/input-validator.js?v=0.1.6"></script>
+  <script src="js/message-composer.js?v=0.1.6"></script>
+  <script src="js/message-formatter.js?v=0.1.6"></script>
+  <script src="js/whatsapp-url.js?v=0.1.6"></script>
+  <script src="js/app.js?v=0.1.6"></script>
 </body>
 </html>

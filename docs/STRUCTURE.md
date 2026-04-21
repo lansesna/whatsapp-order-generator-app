@@ -14,31 +14,48 @@ It ensures:
 ## Project Structure
 
 ```text
-index.html
-css/style.css
+/
+├── index.html
+├── README.md
+├── CHANGELOG.md
+├── AGENT.md
+├── CODEX.md
+├── src/
+│   ├── css/
+│   │   └── style.css
+│   └── js/
+│       ├── config.js
+│       ├── form.js
+│       ├── input-validator.js
+│       ├── message-composer.js
+│       ├── message-formatter.js
+│       ├── whatsapp-url.js
+│       └── app.js
+└── docs/
+    ├── PRODUCT.md
+    ├── FLOW.md
+    ├── SETUP.md
+    ├── STRUCTURE.md
+    ├── TASKS.md
+    ├── NOTES.md
+    ├── RELEASE.md
+    ├── agents/
+    └── tasks/
+```
 
-js/
-  config.js
-  form.js
-  input-validator.js
-  message-composer.js
-  message-formatter.js
-  whatsapp-url.js
-  app.js
+### NOTES.md
 
-docs/
-  PRODUCT.md
-  FLOW.md
-  SETUP.md
-  STRUCTURE.md
-  TASKS.md
+- captures ideas, observations, and future considerations
+- NOT an execution source
+- must NOT be treated as backlog
 
-  agents/
-    release-governor.md
+---
 
-  tasks/
-    (execution files, e.g., release-v0.1.3.md)
-````
+### RELEASE.md
+
+- defines release rules and process
+- governs versioning, tagging, and publication
+- must be followed before every release
 
 ### docs/agents/
 

@@ -1,4 +1,4 @@
-# SETUP — WhatsApp Order Generator
+# SETUP — Nak Makan
 
 ## Purpose
 

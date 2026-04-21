@@ -1,5 +1,7 @@
 # RELEASE.md
 
+Application Codename: NT-C
+
 ## Purpose
 
 This document defines how releases are created, validated, and published for the WhatsApp Order Generator Application.

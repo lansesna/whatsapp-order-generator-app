@@ -1,8 +1,8 @@
-# PRODUCT — WhatsApp Order Generator
+# PRODUCT — Nak Makan
 
 ## What it is
 
-WhatsApp Order Generator is a lightweight application that allows vendors to create a simple shareable order page so buyers can submit structured orders via WhatsApp.
+Nak Makan is a lightweight application that allows vendors to create a simple shareable order page so buyers can submit structured orders via WhatsApp.
 
 ---
 
@@ -111,7 +111,7 @@ This is intentionally not:
 
 ---
 
-## Current Implementation (v0.1.5)
+## Current Implementation (v0.1.7 - Unreleased)
 
 - static frontend application
 - single vendor configuration (via config)
@@ -121,6 +121,10 @@ This is intentionally not:
 - mobile-first UI
 - live-preview-first interaction (no manual generate step)
 - non-blocking action feedback for open/copy actions
+- last valid preview preserved during temporary invalid state
+- lightweight feedback/report mechanism (developer channel)
+- lightweight UI modernization (typography, spacing, hierarchy)
+- clearer Malay-first label wording for key order/preview sections (TASK-020)
 
 Limitations:
 - no vendor registration
@@ -188,10 +192,10 @@ For buyers:
 
 ```
 
-v0.1 → static order page (current)
-v0.2 → improved UX and validation
-v0.3 → vendor-configurable data
-v0.4 → unique shop routing
+v0.1 → static order page + UX hardening (current)
+v0.2 → multi-vendor static support
+v0.3 → configuration flexibility
+v0.4 → routing and page structure
 later → persistence layer (local or hosted)
 
 ```
@@ -217,6 +221,4 @@ It is NOT:
 A minimal product that turns messy WhatsApp ordering into a structured, reliable, and fast ordering flow.
 
 Deliver value first. Expand only when necessary.
-
----
 
